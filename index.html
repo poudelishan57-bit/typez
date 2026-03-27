@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +87,204 @@
     flex-direction: column;
     transition: background 0.3s, color 0.3s;
     --typing-size: 22px;
+  }
+
+  /* ══════════════════════════════════════════
+     MOBILE BLOCKER OVERLAY
+  ══════════════════════════════════════════ */
+  #mobile-wall {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0e0e0f;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 28px;
+    overflow: hidden;
+  }
+
+  /* subtle scanline texture */
+  #mobile-wall::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(245, 166, 35, 0.018) 3px,
+      rgba(245, 166, 35, 0.018) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* ambient glow blob */
+  #mobile-wall::after {
+    content: '';
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+
+  #mobile-wall.show { display: flex; }
+
+  .mw-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    animation: mwFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes mwFadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .mw-icon-wrap {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .mw-keyboard-svg {
+    width: 72px;
+    height: 72px;
+    opacity: 0.9;
+    animation: mwFloat 3.6s ease-in-out infinite;
+  }
+
+  @keyframes mwFloat {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-7px); }
+  }
+
+  /* strike-through slash over keyboard */
+  .mw-slash {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mw-slash::before {
+    content: '';
+    position: absolute;
+    width: 90px;
+    height: 3px;
+    background: var(--incorrect);
+    border-radius: 2px;
+    transform: rotate(-38deg);
+    box-shadow: 0 0 12px rgba(224,92,92,0.6);
+    animation: mwSlash 0.5s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  @keyframes mwSlash {
+    from { transform: rotate(-38deg) scaleX(0); }
+    to   { transform: rotate(-38deg) scaleX(1); }
+  }
+
+  .mw-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--incorrect);
+    margin-bottom: 14px;
+    opacity: 0.85;
+  }
+
+  .mw-headline {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.5rem, 8vw, 2.1rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .mw-headline span {
+    color: var(--accent);
+    position: relative;
+  }
+
+  .mw-sub {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 280px;
+  }
+
+  .mw-divider {
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin-bottom: 28px;
+    opacity: 0.5;
+  }
+
+  .mw-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(245,166,35,0.06);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--accent2);
+    letter-spacing: 0.04em;
+  }
+
+  .mw-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: mwPulse 1.6s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes mwPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+    50%       { opacity: 0.4; box-shadow: 0 0 3px var(--accent); }
+  }
+
+  .mw-corner-tl,
+  .mw-corner-br {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    opacity: 0.25;
+  }
+  .mw-corner-tl {
+    top: 24px; left: 24px;
+    border-top: 1px solid var(--accent);
+    border-left: 1px solid var(--accent);
+  }
+  .mw-corner-br {
+    bottom: 24px; right: 24px;
+    border-bottom: 1px solid var(--accent);
+    border-right: 1px solid var(--accent);
+  }
+
+  @media (min-width: 769px) {
+    #mobile-wall { display: none !important; }
   }
 
   /* ── HEADER ── */
@@ -298,7 +495,6 @@
     opacity: 0.6;
   }
 
-  /* Space character between words */
   .space-char {
     display: inline-block;
     position: relative;
@@ -355,7 +551,6 @@
     50% { opacity: 0; }
   }
 
-  /* Caret mode line cursor */
   .caret-line .char.cursor-on { background: none; }
   .caret-line .char.cursor-on::before { display: block; }
   .caret-block .char.cursor-on { background: var(--cursor-color); color: var(--bg) !important; }
@@ -582,7 +777,6 @@
   .setting-pill:hover { color: var(--text); }
   .setting-pill.active { background: var(--accent); color: #0e0e0f; border-color: var(--accent); font-weight: 700; }
 
-  /* Toggle switch */
   .toggle { position: relative; display: inline-block; width: 40px; height: 22px; }
   .toggle input { opacity: 0; width: 0; height: 0; }
   .toggle-slider {
@@ -605,7 +799,6 @@
   .toggle input:checked + .toggle-slider { background: color-mix(in srgb, var(--accent) 20%, transparent); border-color: var(--accent); }
   .toggle input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--accent); }
 
-  /* Theme swatches */
   .theme-swatches { display: flex; gap: 8px; }
   .swatch {
     width: 26px; height: 26px;
@@ -620,7 +813,6 @@
   .swatch-ocean { background: linear-gradient(135deg, #07111e, #38bdf8); }
   .swatch-rose { background: linear-gradient(135deg, #140a0f, #f472b6); }
 
-  /* ── QUOTE MODE INPUT ── */
   .custom-text-area {
     width: 100%;
     background: var(--surface2);
@@ -695,12 +887,7 @@
     100% { transform: scale(1); opacity: 1; }
   }
 
-  /* ── SOUND TOGGLE INDICATOR ── */
-  .sound-indicator {
-    font-size: 0.75rem;
-  }
-
-  /* ── LANGUAGE INDICATOR ── */
+  .sound-indicator { font-size: 0.75rem; }
   .lang-badge {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -723,13 +910,11 @@
     .big-wpm { font-size: 4rem; }
   }
 
-  /* scrollbar */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
-  /* Accessibility */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
@@ -737,6 +922,56 @@
 </style>
 </head>
 <body>
+
+<!-- ══════════════════════════════════════════
+     MOBILE BLOCKER WALL
+═══════════════════════════════════════════ -->
+<div id="mobile-wall" role="alert" aria-live="assertive">
+  <!-- decorative corners -->
+  <div class="mw-corner-tl"></div>
+  <div class="mw-corner-br"></div>
+
+  <div class="mw-inner">
+    <!-- icon: keyboard with slash -->
+    <div class="mw-icon-wrap">
+      <svg class="mw-keyboard-svg" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="6" y="18" width="60" height="36" rx="6" stroke="#f5a623" stroke-width="2.5" fill="rgba(245,166,35,0.06)"/>
+        <!-- key rows -->
+        <rect x="13" y="26" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
+        <rect x="23" y="26" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
+        <rect x="33" y="26" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
+        <rect x="43" y="26" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
+        <rect x="53" y="26" width="6" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
+        <rect x="13" y="35" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
+        <rect x="23" y="35" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
+        <rect x="33" y="35" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
+        <rect x="43" y="35" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
+        <rect x="53" y="35" width="6" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
+        <!-- spacebar -->
+        <rect x="20" y="44" width="32" height="6" rx="1.5" fill="#f5a623" opacity="0.25"/>
+      </svg>
+      <div class="mw-slash" aria-hidden="true"></div>
+    </div>
+
+    <div class="mw-eyebrow">// device.type !== "desktop"</div>
+
+    <h1 class="mw-headline">
+      PC only.<br><span>No touch.</span>
+    </h1>
+
+    <p class="mw-sub">
+      TypeForge requires a physical keyboard.<br>
+      Mobile input is not supported.
+    </p>
+
+    <div class="mw-divider"></div>
+
+    <div class="mw-badge">
+      <span class="mw-badge-dot"></span>
+      Switch to desktop to start typing
+    </div>
+  </div>
+</div>
 
 <!-- HEADER -->
 <header>
@@ -868,7 +1103,6 @@
 
 <!-- MAIN -->
 <main>
-  <!-- TOOLBAR -->
   <nav class="toolbar" role="toolbar" aria-label="Test configuration">
     <span class="mode-label">mode</span>
     <button class="pill active" data-mode-type="time" aria-pressed="true">⏱ time</button>
@@ -879,7 +1113,6 @@
     <div class="toolbar-sep"></div>
     <span class="mode-label" id="sub-label">time</span>
 
-    <!-- Time options -->
     <div id="time-opts">
       <button class="pill active" data-time="15" aria-pressed="true">15</button>
       <button class="pill" data-time="30" aria-pressed="false">30</button>
@@ -887,7 +1120,6 @@
       <button class="pill" data-time="120" aria-pressed="false">120</button>
     </div>
 
-    <!-- Word options -->
     <div id="words-opts" style="display:none">
       <button class="pill active" data-words="10" aria-pressed="true">10</button>
       <button class="pill" data-words="25" aria-pressed="false">25</button>
@@ -895,26 +1127,22 @@
       <button class="pill" data-words="100" aria-pressed="false">100</button>
     </div>
 
-    <!-- Quote options -->
     <div id="quote-opts" style="display:none">
       <button class="pill active" data-quote-len="short" aria-pressed="true">short</button>
       <button class="pill" data-quote-len="medium" aria-pressed="false">medium</button>
       <button class="pill" data-quote-len="long" aria-pressed="false">long</button>
     </div>
 
-    <!-- Custom (no sub-pills) -->
     <div id="custom-opts" style="display:none">
       <span class="mode-label">enter text below</span>
     </div>
   </nav>
 
-  <!-- CUSTOM TEXT INPUT (conditionally shown) -->
   <div id="custom-input-wrap" style="display:none; width:100%; margin-bottom:20px;">
     <textarea class="custom-text-area" id="custom-text-input" placeholder="Paste or type your custom text here…" rows="4" aria-label="Custom text input"></textarea>
     <button class="btn btn-primary" id="custom-apply-btn">Apply Text</button>
   </div>
 
-  <!-- LIVE STATS -->
   <div class="live-stats" role="status" aria-live="polite" aria-atomic="false">
     <div class="stat-item">
       <div class="stat-value" id="live-wpm">–</div>
@@ -930,12 +1158,10 @@
     </div>
   </div>
 
-  <!-- PROGRESS BAR -->
   <div class="progress-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Test progress">
     <div class="progress-fill" id="progress-fill"></div>
   </div>
 
-  <!-- TYPING AREA -->
   <div id="typing-container" class="typing-container caret-line" tabindex="0" role="textbox" aria-multiline="true" aria-label="Typing area — click or press Tab to focus">
     <div id="countdown-overlay" aria-hidden="true">
       <div class="countdown-number" id="countdown-num">3</div>
@@ -944,7 +1170,6 @@
     <div class="words-display" id="words-display" aria-hidden="true"></div>
   </div>
 
-  <!-- CONTROL BAR -->
   <div class="control-bar">
     <button class="btn btn-primary" id="start-btn">▶ Start</button>
     <button class="btn btn-ghost" id="reset-btn">↺ Reset</button>
@@ -953,7 +1178,6 @@
     </span>
   </div>
 
-  <!-- RESULTS SCREEN -->
   <section id="results-screen" aria-label="Test results">
     <div class="results-header">
       <h2>Test Complete</h2>
@@ -1015,6 +1239,23 @@
 
 <script>
 // ═══════════════════════════════════════════
+//  MOBILE DETECTION
+// ═══════════════════════════════════════════
+(function() {
+  function isMobile() {
+    return window.innerWidth <= 768 ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+      ('ontouchstart' in window && !window.matchMedia('(pointer: fine)').matches);
+  }
+  const wall = document.getElementById('mobile-wall');
+  if (isMobile()) wall.classList.add('show');
+  window.addEventListener('resize', function() {
+    if (isMobile()) wall.classList.add('show');
+    else wall.classList.remove('show');
+  });
+})();
+
+// ═══════════════════════════════════════════
 //  WORD BANKS
 // ═══════════════════════════════════════════
 const WORD_BANKS = {
@@ -1054,10 +1295,7 @@ const state = {
   quoteLen: 'short',
   lang: 'en',
   customText: '',
-  // runtime
   words: [],
-  // charMap now includes both letter chars AND space chars between words
-  // each entry: { type: 'char'|'space', wordIdx, charIdx, el, char }
   charMap: [],
   charPos: 0,
   startTime: null,
@@ -1074,7 +1312,6 @@ const state = {
   wpmHistory: [],
   accHistory: [],
   rawHistory: [],
-  // settings
   sound: false,
   backspaceRestricted: false,
   theme: '',
@@ -1086,9 +1323,6 @@ const state = {
   audioCtx: null
 };
 
-// ═══════════════════════════════════════════
-//  DOM REFS
-// ═══════════════════════════════════════════
 const $ = id => document.getElementById(id);
 const wordsDisplay    = $('words-display');
 const hiddenInput     = $('hidden-input');
@@ -1104,9 +1338,6 @@ const resultsScreen   = $('results-screen');
 const countdownOverlay= $('countdown-overlay');
 const countdownNum    = $('countdown-num');
 
-// ═══════════════════════════════════════════
-//  WORD GENERATION
-// ═══════════════════════════════════════════
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -1135,9 +1366,6 @@ function generateWords() {
   return words.slice(0, count);
 }
 
-// ═══════════════════════════════════════════
-//  RENDER
-// ═══════════════════════════════════════════
 function renderWords(words) {
   state.words = words;
   state.charMap = [];
@@ -1148,7 +1376,6 @@ function renderWords(words) {
     wordEl.className = 'word';
     wordEl.dataset.wi = wi;
 
-    // Add each letter character of the word
     [...word].forEach((ch, ci) => {
       const charEl = document.createElement('span');
       charEl.className = 'char';
@@ -1161,11 +1388,10 @@ function renderWords(words) {
 
     wordsDisplay.appendChild(wordEl);
 
-    // Add a visible space element between words (not after the last word)
     if (wi < words.length - 1) {
       const spaceEl = document.createElement('span');
       spaceEl.className = 'space-char';
-      spaceEl.textContent = '\u00A0'; // non-breaking space so it renders visibly
+      spaceEl.textContent = '\u00A0';
       state.charMap.push({ type: 'space', wordIdx: wi, el: spaceEl, char: ' ' });
       wordsDisplay.appendChild(spaceEl);
     }
@@ -1177,7 +1403,6 @@ function renderWords(words) {
 }
 
 function updateCursor() {
-  // Remove all cursor classes from both char and space-char elements
   document.querySelectorAll('.char.cursor-on, .char.cursor-before, .space-char.cursor-on').forEach(el => {
     el.classList.remove('cursor-on', 'cursor-before');
   });
@@ -1206,9 +1431,6 @@ function scrollToCurrentLine() {
   }
 }
 
-// ═══════════════════════════════════════════
-//  TIMER
-// ═══════════════════════════════════════════
 function startTimer() {
   state.startTime = Date.now();
   state.elapsed = 0;
@@ -1253,9 +1475,6 @@ function stopTimer() {
   clearInterval(state.statsInterval);
 }
 
-// ═══════════════════════════════════════════
-//  METRICS
-// ═══════════════════════════════════════════
 function calcWpm(secs) {
   const minutes = secs / 60;
   const netWords = state.correctChars / 5;
@@ -1283,9 +1502,6 @@ function updateProgress() {
   progressFill.parentElement.setAttribute('aria-valuenow', Math.round(pct));
 }
 
-// ═══════════════════════════════════════════
-//  KEYSTROKE HANDLING
-// ═══════════════════════════════════════════
 hiddenInput.addEventListener('keydown', handleKey);
 hiddenInput.addEventListener('paste', e => e.preventDefault());
 hiddenInput.addEventListener('copy', e => e.preventDefault());
@@ -1294,7 +1510,6 @@ hiddenInput.addEventListener('cut', e => e.preventDefault());
 function handleKey(e) {
   if (state.finished) return;
 
-  // Start on first keypress (not Escape/Tab)
   if (!state.running && e.key !== 'Escape' && e.key !== 'Tab') {
     beginTest();
   }
@@ -1313,14 +1528,12 @@ function handleKey(e) {
     return;
   }
 
-  // Prevent default space scrolling
   if (e.key === ' ') {
     e.preventDefault();
   }
 
   if (e.key.length !== 1) return;
 
-  // Finished all chars
   if (state.charPos >= state.charMap.length) {
     finishTest();
     return;
@@ -1350,7 +1563,6 @@ function handleKey(e) {
   scrollToCurrentLine();
   updateProgress();
 
-  // Words/quote/custom mode: finish when all chars typed
   if (state.mode !== 'time' && state.charPos >= state.charMap.length) {
     finishTest();
   }
@@ -1379,9 +1591,6 @@ function shakeContainer() {
   setTimeout(() => typingContainer.classList.remove('shake'), 300);
 }
 
-// ═══════════════════════════════════════════
-//  TEST FLOW
-// ═══════════════════════════════════════════
 function initTest(retry = false) {
   stopTimer();
   Object.assign(state, {
@@ -1495,9 +1704,6 @@ function calcConsistency() {
   return Math.round(Math.max(0, (1 - cv) * 100));
 }
 
-// ═══════════════════════════════════════════
-//  CHART
-// ═══════════════════════════════════════════
 let perfChart = null;
 function renderChart() {
   const ctx = $('perf-chart').getContext('2d');
@@ -1578,9 +1784,6 @@ function renderChart() {
   });
 }
 
-// ═══════════════════════════════════════════
-//  SOUND ENGINE
-// ═══════════════════════════════════════════
 function getAudioCtx() {
   if (!state.audioCtx) state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return state.audioCtx;
@@ -1609,11 +1812,6 @@ function playSound(type) {
   } catch(e) {}
 }
 
-// ═══════════════════════════════════════════
-//  SETTINGS & TOOLBAR HANDLERS
-// ═══════════════════════════════════════════
-
-// Mode type pills
 document.querySelectorAll('[data-mode-type]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-mode-type]').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
@@ -1633,7 +1831,6 @@ document.querySelectorAll('[data-mode-type]').forEach(btn => {
   });
 });
 
-// Time pills
 document.querySelectorAll('[data-time]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-time]').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
@@ -1643,7 +1840,6 @@ document.querySelectorAll('[data-time]').forEach(btn => {
   });
 });
 
-// Word pills
 document.querySelectorAll('[data-words]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-words]').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
@@ -1653,7 +1849,6 @@ document.querySelectorAll('[data-words]').forEach(btn => {
   });
 });
 
-// Quote length pills
 document.querySelectorAll('[data-quote-len]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-quote-len]').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
@@ -1663,7 +1858,6 @@ document.querySelectorAll('[data-quote-len]').forEach(btn => {
   });
 });
 
-// Custom text apply
 $('custom-apply-btn').addEventListener('click', () => {
   state.customText = $('custom-text-input').value;
   if (!state.customText.trim()) { showToast('Please enter some text!'); return; }
@@ -1671,7 +1865,6 @@ $('custom-apply-btn').addEventListener('click', () => {
   showToast('Custom text applied!');
 });
 
-// Start / Reset
 startBtn.addEventListener('click', () => {
   if (!state.running) { hiddenInput.focus(); beginTest(); }
 });
@@ -1679,10 +1872,8 @@ resetBtn.addEventListener('click', () => { resetTest(); startBtn.textContent = '
 $('retry-btn').addEventListener('click', () => { initTest(true); startBtn.textContent = '▶ Start'; startBtn.disabled = false; });
 $('new-test-btn').addEventListener('click', () => { initTest(false); startBtn.textContent = '▶ Start'; startBtn.disabled = false; });
 
-// Focus typing container
 typingContainer.addEventListener('click', () => hiddenInput.focus());
 
-// Global keyboard shortcuts
 document.addEventListener('keydown', e => {
   if (e.key === 'Tab') {
     e.preventDefault();
@@ -1694,7 +1885,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Share result
 $('share-btn').addEventListener('click', () => {
   const wpm = $('res-wpm').textContent.replace(' wpm','').trim();
   const acc = $('res-acc').textContent;
@@ -1709,7 +1899,6 @@ $('share-btn').addEventListener('click', () => {
   }
 });
 
-// ── SETTINGS PANEL ──
 $('settings-btn').addEventListener('click', () => {
   $('settings-panel').classList.add('open');
   $('settings-backdrop').classList.add('open');
@@ -1809,7 +1998,6 @@ document.querySelectorAll('[data-layout]').forEach(btn => {
   });
 });
 
-// ── TOAST ──
 function showToast(msg) {
   const t = $('toast');
   t.textContent = msg;
@@ -1817,9 +2005,6 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-// ═══════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════
 initTest();
 hiddenInput.focus();
 </script>
