@@ -1,56 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9960196527943701" crossorigin="anonymous"></script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TypeForge — Precision Typing Test</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg: #0e0e0f;
-      --surface: #161618;
-      --surface2: #1e1e21;
-      --border: #2a2a2e;
-      --text: #e8e6e1;
-      --muted: #5a5a66;
-      --accent: #f5a623;
-      --accent2: #f7c35f;
-      --correct: #4ec994;
-      --incorrect: #e05c5c;
-      --cursor-color: #f5a623;
-      --font-mono: 'JetBrains Mono', monospace;
-      --font-display: 'Syne', sans-serif;
-      --radius: 6px;
+      --bg: #323437;
+      --surface: #2c2e31;
+      --surface2: #232527;
+      --border: #3a3c3f;
+      --text: #d1d0c5;
+      --muted: #646669;
+      --accent: #e2b714;
+      --accent2: #f0c93a;
+      --correct: #d1d0c5;
+      --incorrect: #ca4754;
+      --cursor-color: #e2b714;
+      --font-mono: 'Roboto Mono', monospace;
+      --font-display: 'Roboto', sans-serif;
+      --radius: 4px;
       --typing-size: 22px;
-      --transition-fast: 0.12s ease;
-      --transition-med: 0.22s ease;
+      --transition-fast: 0.1s ease;
+      --transition-med: 0.2s ease;
     }
 
     [data-theme="light"] {
-      --bg: #f5f3ef; --surface: #ebe8e2; --surface2: #dedad2;
-      --border: #ccc8bf; --text: #1a1a1c; --muted: #8a8880;
-      --accent: #d4840d; --accent2: #e09a2a;
-      --correct: #2a8c5c; --incorrect: #c0392b; --cursor-color: #d4840d;
+      --bg: #e1e1de; --surface: #d7d7d4; --surface2: #c8c8c4;
+      --border: #b8b8b5; --text: #323437; --muted: #7c7c7a;
+      --accent: #e2b714; --accent2: #f0c93a;
+      --correct: #323437; --incorrect: #ca4754; --cursor-color: #e2b714;
     }
     [data-theme="ocean"] {
-      --bg: #07111e; --surface: #0d1d2e; --surface2: #132333;
-      --border: #1e3448; --text: #cde8f8; --muted: #3a607a;
-      --accent: #38bdf8; --accent2: #7dd3fc;
-      --correct: #34d399; --incorrect: #f87171; --cursor-color: #38bdf8;
+      --bg: #1a1b26; --surface: #16171f; --surface2: #13141b;
+      --border: #24253a; --text: #a9b1d6; --muted: #565f89;
+      --accent: #7aa2f7; --accent2: #9ece6a;
+      --correct: #a9b1d6; --incorrect: #f7768e; --cursor-color: #7aa2f7;
     }
     [data-theme="rose"] {
-      --bg: #140a0f; --surface: #1e1018; --surface2: #271420;
-      --border: #3a1e2c; --text: #f0dde8; --muted: #6a3a52;
-      --accent: #f472b6; --accent2: #f9a8d4;
-      --correct: #4ade80; --incorrect: #fb7185; --cursor-color: #f472b6;
+      --bg: #1c1b20; --surface: #18171c; --surface2: #141318;
+      --border: #2a2830; --text: #e0def4; --muted: #6e6a86;
+      --accent: #eb6f92; --accent2: #f6c177;
+      --correct: #e0def4; --incorrect: #eb6f92; --cursor-color: #eb6f92;
+    }
+    [data-theme="serika"] {
+      --bg: #323437; --surface: #2c2e31; --surface2: #232527;
+      --border: #3a3c3f; --text: #d1d0c5; --muted: #646669;
+      --accent: #e2b714; --accent2: #f0c93a;
+      --correct: #d1d0c5; --incorrect: #ca4754; --cursor-color: #e2b714;
     }
 
     [data-font="ibm"]     { --font-mono: 'IBM Plex Mono', monospace; }
     [data-font="courier"] { --font-mono: 'Courier New', monospace; }
-    [data-font="dyslexic"]{ --font-mono: 'OpenDyslexicMono', monospace; }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -63,226 +67,119 @@
       display: flex;
       flex-direction: column;
       transition: background var(--transition-med), color var(--transition-med);
-      will-change: background;
     }
 
+    /* ── MOBILE WALL ── */
     #mobile-wall {
-      display: none;
-      position: fixed; inset: 0; z-index: 9999;
-      background: #0e0e0f;
-      align-items: center; justify-content: center;
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg); align-items: center; justify-content: center;
       flex-direction: column; text-align: center; padding: 32px 28px;
-      overflow: hidden;
-    }
-    #mobile-wall::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(245,166,35,.018) 3px, rgba(245,166,35,.018) 4px);
-      pointer-events: none;
-    }
-    #mobile-wall::after {
-      content: '';
-      position: absolute;
-      width: 340px; height: 340px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(245,166,35,.07) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -60%);
-      pointer-events: none;
     }
     #mobile-wall.show { display: flex; }
-
-    .mw-inner {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center;
-      animation: mwFadeUp .6s cubic-bezier(.16,1,.3,1) both;
-    }
-    @keyframes mwFadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .mw-icon-wrap { position: relative; margin-bottom: 28px; }
-    .mw-keyboard-svg {
-      width: 72px; height: 72px; opacity: .9;
-      animation: mwFloat 3.6s ease-in-out infinite;
-      will-change: transform;
-    }
-    @keyframes mwFloat {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-7px); }
-    }
-    .mw-slash { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-    .mw-slash::before {
-      content: '';
-      position: absolute;
-      width: 90px; height: 3px;
-      background: var(--incorrect); border-radius: 2px;
-      transform: rotate(-38deg) scaleX(1);
-      box-shadow: 0 0 12px rgba(224,92,92,.6);
-      animation: mwSlash .5s .3s cubic-bezier(.16,1,.3,1) both;
-    }
-    @keyframes mwSlash {
-      from { transform: rotate(-38deg) scaleX(0); }
-      to   { transform: rotate(-38deg) scaleX(1); }
-    }
-    .mw-eyebrow {
-      font-family: var(--font-mono); font-size: .62rem;
-      letter-spacing: .25em; text-transform: uppercase;
-      color: var(--incorrect); margin-bottom: 14px; opacity: .85;
-    }
-    .mw-headline {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(1.5rem,8vw,2.1rem); line-height: 1.15;
-      letter-spacing: -.03em; color: var(--text); margin-bottom: 6px;
-    }
+    .mw-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .mw-headline { font-family: var(--font-mono); font-size: 1.4rem; color: var(--text); }
     .mw-headline span { color: var(--accent); }
-    .mw-sub {
-      font-family: var(--font-mono); font-size: .78rem;
-      color: var(--muted); line-height: 1.7; margin-bottom: 36px; max-width: 280px;
-    }
-    .mw-divider {
-      width: 48px; height: 1px;
-      background: linear-gradient(90deg,transparent,var(--accent),transparent);
-      margin-bottom: 28px; opacity: .5;
-    }
-    .mw-badge {
-      display: flex; align-items: center; gap: 10px;
-      background: rgba(245,166,35,.06);
-      border: 1px solid rgba(245,166,35,.2);
-      border-radius: 50px; padding: 10px 20px;
-      font-family: var(--font-mono); font-size: .74rem;
-      color: var(--accent2); letter-spacing: .04em;
-    }
-    .mw-badge-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent); box-shadow: 0 0 8px var(--accent);
-      animation: mwPulse 1.6s ease-in-out infinite; flex-shrink: 0;
-    }
-    @keyframes mwPulse {
-      0%,100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
-      50%      { opacity: .4; box-shadow: 0 0 3px var(--accent); }
-    }
-    .mw-corner-tl,.mw-corner-br { position: absolute; width: 40px; height: 40px; opacity: .25; }
-    .mw-corner-tl { top: 24px; left: 24px; border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
-    .mw-corner-br { bottom: 24px; right: 24px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+    .mw-sub { font-family: var(--font-mono); font-size: .82rem; color: var(--muted); }
     @media (min-width:769px) { #mobile-wall { display: none !important; } }
 
+    /* ── HEADER ── */
     header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 32px;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
+      padding: 14px 32px;
       position: sticky; top: 0; z-index: 100;
     }
     .logo {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: 1.4rem; letter-spacing: -.03em; color: var(--text);
-      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-weight: 400;
+      font-size: 1.3rem; color: var(--accent);
+      display: flex; align-items: center; gap: 10px;
     }
-    .logo span { color: var(--accent); }
-    .logo .forge-icon {
-      width: 28px; height: 28px; background: var(--accent);
-      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
-      display: flex; align-items: center; justify-content: center; font-size: 13px;
+    .logo-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px;
     }
-    .header-actions { display: flex; gap: 10px; align-items: center; }
-    .icon-btn {
-      background: none; border: 1px solid var(--border); color: var(--muted);
-      padding: 7px 10px; border-radius: var(--radius);
-      cursor: pointer; font-size: .8rem; font-family: var(--font-mono);
-      transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
-      display: flex; align-items: center; gap: 6px;
+    .logo-icon svg { fill: var(--accent); }
+    .header-actions { display: flex; gap: 16px; align-items: center; }
+    .header-btn {
+      background: none; border: none; color: var(--muted);
+      cursor: pointer; font-size: .85rem; font-family: var(--font-mono);
+      transition: color var(--transition-fast);
+      display: flex; align-items: center; gap: 6px; padding: 4px 8px;
+      border-radius: var(--radius);
     }
-    .icon-btn:hover { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
-    .icon-btn.active { color: var(--accent); border-color: var(--accent); }
+    .header-btn:hover { color: var(--text); }
+    .header-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
+    /* ── MAIN ── */
     main {
       flex: 1; display: flex; flex-direction: column; align-items: center;
-      padding: 40px 24px; max-width: 1000px; margin: 0 auto; width: 100%;
+      padding: 0 24px 40px; max-width: 980px; margin: 0 auto; width: 100%;
     }
 
+    /* ── TOOLBAR (Monkeytype style) ── */
     .toolbar {
-      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-      margin-bottom: 40px;
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 8px 12px; border-radius: 10px;
-      width: 100%; justify-content: center;
+      display: flex; align-items: center; gap: 2px;
+      margin-bottom: 32px; flex-wrap: wrap; justify-content: center;
+      background: var(--surface); border-radius: var(--radius);
+      padding: 4px; width: fit-content;
     }
-    .toolbar-sep { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }
+    .toolbar-sep { width: 1px; height: 18px; background: var(--border); margin: 0 4px; }
     .pill {
       border: none; background: none; color: var(--muted);
-      padding: 5px 14px; border-radius: 20px;
+      padding: 6px 14px; border-radius: var(--radius);
       cursor: pointer; font-family: var(--font-mono);
-      font-size: .78rem; font-weight: 500;
+      font-size: .8rem; font-weight: 400;
       transition: color var(--transition-fast), background var(--transition-fast);
-      white-space: nowrap;
+      white-space: nowrap; display: flex; align-items: center; gap: 6px;
     }
     .pill:hover { color: var(--text); }
-    .pill.active { background: var(--accent); color: #0e0e0f; font-weight: 700; }
-    .mode-label {
-      font-family: var(--font-mono); font-size: .7rem; color: var(--muted);
-      padding: 4px 10px; letter-spacing: .08em; text-transform: uppercase;
-    }
+    .pill.active { color: var(--accent); }
+    .pill svg { width: 13px; height: 13px; fill: currentColor; opacity: .7; }
 
+    /* ── LIVE STATS ── */
     .live-stats {
-      display: flex; align-items: center; gap: 32px;
-      margin-bottom: 28px; width: 100%; justify-content: center;
+      display: flex; align-items: flex-end; gap: 40px;
+      margin-bottom: 24px; width: 100%; justify-content: center;
     }
     .stat-item { display: flex; flex-direction: column; align-items: center; }
     .stat-value {
       font-family: var(--font-mono); font-size: 2.4rem; font-weight: 300;
-      color: var(--accent); line-height: 1; letter-spacing: -.03em;
+      color: var(--accent); line-height: 1; letter-spacing: -.02em;
     }
     .stat-label {
       font-family: var(--font-mono); font-size: .65rem; color: var(--muted);
-      letter-spacing: .1em; text-transform: uppercase; margin-top: 4px;
+      letter-spacing: .1em; text-transform: lowercase; margin-top: 4px;
     }
     .timer-value {
-      font-family: var(--font-mono); font-size: 3.2rem; font-weight: 200;
-      color: var(--text); line-height: 1; letter-spacing: -.05em;
+      font-family: var(--font-mono); font-size: 3rem; font-weight: 300;
+      color: var(--accent); line-height: 1;
     }
-    .timer-value.urgent {
-      color: var(--incorrect);
-      animation: pulse-urgent .5s ease-in-out infinite alternate;
-      will-change: opacity;
-    }
-    @keyframes pulse-urgent { from { opacity: 1; } to { opacity: .6; } }
+    .timer-value.urgent { color: var(--incorrect); animation: pulse-urgent .5s ease-in-out infinite alternate; }
+    @keyframes pulse-urgent { from { opacity: 1; } to { opacity: .5; } }
 
+    /* ── PROGRESS ── */
     .progress-wrap {
-      width: 100%; height: 3px;
-      background: var(--border); border-radius: 2px;
+      width: 100%; height: 2px; background: var(--border);
       margin-bottom: 24px; overflow: hidden;
     }
     .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      border-radius: 2px;
-      transform-origin: left;
-      transform: scaleX(0);
-      transition: transform var(--transition-fast) ease;
-      will-change: transform;
+      height: 100%; background: var(--accent);
+      transform-origin: left; transform: scaleX(0);
+      transition: transform .1s ease;
     }
 
+    /* ── TYPING AREA ── */
     .typing-container {
       width: 100%; position: relative;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 36px 40px;
-      cursor: text;
-      transition: border-color var(--transition-med);
-      min-height: 140px; overflow: hidden;
+      padding: 32px 0; cursor: text;
+      min-height: 130px; overflow: hidden;
     }
-    .typing-container:focus-within {
-      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-    }
-    .typing-container.shake {
-      animation: shake .3s ease;
-      will-change: transform;
-    }
+    .typing-container.shake { animation: shake .25s ease; }
     @keyframes shake {
       0%,100% { transform: translateX(0); }
-      20%      { transform: translateX(-6px); }
-      40%      { transform: translateX(6px); }
-      60%      { transform: translateX(-4px); }
-      80%      { transform: translateX(4px); }
+      20%      { transform: translateX(-5px); }
+      40%      { transform: translateX(5px); }
+      60%      { transform: translateX(-3px); }
+      80%      { transform: translateX(3px); }
     }
 
     #hidden-input {
@@ -292,514 +189,630 @@
     .words-display {
       font-family: var(--font-mono);
       font-size: var(--typing-size);
-      line-height: 1.8;
+      line-height: 1.9;
       color: var(--muted);
       user-select: none;
       word-break: break-word;
       overflow: hidden;
-      max-height: calc(var(--typing-size) * 1.8 * 3 + 8px);
+      max-height: calc(var(--typing-size) * 1.9 * 3 + 10px);
     }
 
     .word { display: inline-block; white-space: nowrap; position: relative; }
     .word.wrong-word::after {
-      content: '';
-      position: absolute;
-      bottom: 2px; left: 0; right: 0; height: 2px;
-      background: var(--incorrect); border-radius: 1px; opacity: .6;
+      content: ''; position: absolute;
+      bottom: 4px; left: 0; right: 0; height: 2px;
+      background: var(--incorrect); opacity: .5; border-radius: 1px;
     }
 
-    .space-char { display: inline-block; position: relative; }
-    .space-char.correct { color: var(--correct); }
-    .space-char.incorrect { color: var(--incorrect); text-decoration: underline; }
-
-    .char, .space-char {
-      display: inline-block; position: relative;
-      transition: color .06s;
-    }
+    .char, .space-char { display: inline-block; position: relative; transition: color .05s; }
     .char.correct   { color: var(--correct); }
     .char.incorrect { color: var(--incorrect); }
     .char.extra     { color: var(--incorrect); opacity: .7; font-style: italic; }
+    .space-char.correct   { color: var(--correct); }
+    .space-char.incorrect { color: var(--incorrect); }
 
-    @keyframes blink {
-      0%,100% { opacity: 1; } 50% { opacity: 0; }
-    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
     .caret-line .char.cursor-on::before,
     .caret-line .space-char.cursor-on::before {
       content: ''; position: absolute;
-      left: -1px; top: 8%; height: 84%; width: 2px;
+      left: -1px; top: 10%; height: 80%; width: 2px;
       background: var(--cursor-color); border-radius: 1px;
-      animation: blink 1s ease-in-out infinite;
-      will-change: opacity;
+      animation: blink 1.1s ease-in-out infinite;
     }
-
     .caret-block .char.cursor-on {
       background: var(--cursor-color); color: var(--bg) !important;
     }
-    .caret-block .space-char.cursor-on { background: color-mix(in srgb, var(--cursor-color) 30%, transparent); }
-
     .char.cursor-before::before {
       content: ''; position: absolute;
-      left: calc(100% - 1px); top: 8%; height: 84%; width: 2px;
+      left: calc(100% - 1px); top: 10%; height: 80%; width: 2px;
       background: var(--cursor-color); border-radius: 1px;
-      animation: blink 1s ease-in-out infinite;
-      will-change: opacity;
+      animation: blink 1.1s ease-in-out infinite;
     }
 
+    /* ── CONTROL BAR ── */
     .control-bar {
       display: flex; justify-content: center; align-items: center;
-      gap: 14px; margin-top: 28px;
+      gap: 14px; margin-top: 24px;
     }
     .btn {
       font-family: var(--font-mono); font-size: .82rem;
-      padding: 10px 22px; border-radius: var(--radius);
-      cursor: pointer;
-      transition: background var(--transition-fast), border-color var(--transition-fast),
-                  transform var(--transition-fast), box-shadow var(--transition-fast);
-      border: 1px solid var(--border);
+      padding: 9px 20px; border-radius: var(--radius);
+      cursor: pointer; border: none;
+      transition: background var(--transition-fast), color var(--transition-fast), transform .1s;
       display: flex; align-items: center; gap: 8px;
     }
     .btn-primary {
-      background: var(--accent); color: #0e0e0f;
-      border-color: var(--accent); font-weight: 700;
+      background: var(--accent); color: var(--bg); font-weight: 500;
     }
-    .btn-primary:hover {
-      background: var(--accent2); border-color: var(--accent2);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 30%, transparent);
-    }
-    .btn-ghost { background: none; color: var(--muted); }
-    .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+    .btn-ghost { background: var(--surface); color: var(--muted); }
+    .btn-ghost:hover { color: var(--text); }
+    .btn-icon { background: none; color: var(--muted); padding: 9px; border: none; cursor: pointer; border-radius: var(--radius); transition: color var(--transition-fast); }
+    .btn-icon:hover { color: var(--accent); }
+    .btn-icon svg { width: 16px; height: 16px; fill: currentColor; display: block; }
     .shortcut-hint {
-      font-family: var(--font-mono); font-size: .7rem; color: var(--muted);
+      font-family: var(--font-mono); font-size: .68rem; color: var(--muted);
       display: flex; align-items: center; gap: 6px;
     }
     .kbd {
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 3px; padding: 2px 6px;
-      font-size: .68rem; color: var(--muted);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 3px; padding: 2px 5px; font-size: .65rem; color: var(--muted);
     }
 
-    #results-screen { display: none; width: 100%; animation: fadeUp .4s ease; }
+    /* ── RESULTS ── */
+    #results-screen { display: none; width: 100%; animation: fadeUp .35s ease; }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .results-header { text-align: center; margin-bottom: 36px; }
-    .results-header h2 {
-      font-family: var(--font-display); font-size: 1rem; font-weight: 400;
-      letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
-    }
+    .results-header { text-align: left; margin-bottom: 32px; display: flex; align-items: flex-end; gap: 32px; }
     .big-wpm {
-      font-family: var(--font-mono); font-size: clamp(4rem,12vw,7rem);
-      font-weight: 200; color: var(--accent); line-height: 1; letter-spacing: -.05em;
+      font-family: var(--font-mono); font-size: clamp(4rem,10vw,6.5rem);
+      font-weight: 300; color: var(--accent); line-height: 1;
     }
-    .big-unit { font-size: 1.5rem; color: var(--muted); }
+    .big-unit { font-size: 1.4rem; color: var(--muted); font-weight: 300; }
+    .results-meta { display: flex; flex-direction: column; gap: 4px; padding-bottom: 12px; }
+    .results-meta-row { font-family: var(--font-mono); font-size: .82rem; color: var(--muted); }
+    .results-meta-val { color: var(--text); }
 
     .results-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr));
-      gap: 14px; margin-bottom: 36px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(110px,1fr));
+      gap: 10px; margin-bottom: 32px;
     }
     .result-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 20px 16px; text-align: center;
-      transition: border-color var(--transition-fast);
+      background: var(--surface); border-radius: var(--radius);
+      padding: 16px 14px; text-align: left;
     }
-    .result-card:hover { border-color: var(--accent); }
     .result-card-val {
-      font-family: var(--font-mono); font-size: 1.9rem;
+      font-family: var(--font-mono); font-size: 1.7rem;
       font-weight: 300; color: var(--text); line-height: 1;
     }
-    .result-card-val.good { color: var(--correct); }
+    .result-card-val.good { color: var(--accent); }
     .result-card-val.bad  { color: var(--incorrect); }
     .result-card-key {
-      font-family: var(--font-mono); font-size: .65rem;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--muted); margin-top: 8px;
+      font-family: var(--font-mono); font-size: .62rem;
+      text-transform: lowercase; color: var(--muted); margin-top: 6px;
     }
 
     .chart-container {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 24px; margin-bottom: 28px;
+      background: var(--surface); border-radius: var(--radius);
+      padding: 20px; margin-bottom: 24px;
     }
     .chart-title {
-      font-family: var(--font-mono); font-size: .72rem;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 16px;
+      font-family: var(--font-mono); font-size: .68rem;
+      text-transform: lowercase; color: var(--muted); margin-bottom: 14px;
     }
 
     .mistakes-section {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 20px 24px; margin-bottom: 28px;
+      background: var(--surface); border-radius: var(--radius);
+      padding: 16px 20px; margin-bottom: 24px;
     }
     .mistakes-title {
-      font-family: var(--font-mono); font-size: .72rem;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 14px;
+      font-family: var(--font-mono); font-size: .68rem;
+      text-transform: lowercase; color: var(--muted); margin-bottom: 12px;
     }
-    .mistake-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .mistake-chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .mistake-chip {
-      background: color-mix(in srgb, var(--incorrect) 15%, var(--surface2));
-      border: 1px solid color-mix(in srgb, var(--incorrect) 30%, transparent);
-      color: var(--incorrect); padding: 4px 12px;
-      border-radius: 20px; font-family: var(--font-mono); font-size: .82rem;
-      display: flex; align-items: center; gap: 6px;
+      background: var(--surface2);
+      color: var(--incorrect); padding: 3px 10px;
+      border-radius: 3px; font-family: var(--font-mono); font-size: .78rem;
+      display: flex; align-items: center; gap: 5px;
     }
     .mistake-count {
-      background: var(--incorrect); color: #fff; border-radius: 10px;
-      padding: 1px 6px; font-size: .68rem; font-weight: 700;
+      background: var(--incorrect); color: var(--bg);
+      border-radius: 2px; padding: 0 4px; font-size: .65rem;
     }
-    .no-mistakes { color: var(--correct); font-family: var(--font-mono); font-size: .88rem; }
-    .results-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .no-mistakes { color: var(--correct); font-family: var(--font-mono); font-size: .85rem; }
+    .results-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
+    /* ── SETTINGS ── */
     #settings-panel {
-      display: none;
-      position: fixed; top: 0; right: 0; bottom: 0; width: 320px;
-      background: var(--surface); border-left: 1px solid var(--border);
-      z-index: 200; overflow-y: auto; padding: 28px 24px;
+      display: none; position: fixed; top: 0; right: 0; bottom: 0; width: 300px;
+      background: var(--surface2); border-left: 1px solid var(--border);
+      z-index: 200; overflow-y: auto; padding: 24px 20px;
       transform: translateX(100%);
     }
-    #settings-panel.open {
-      display: block;
-      animation: slideIn .25s ease forwards;
-    }
-    @keyframes slideIn {
-      from { transform: translateX(100%); }
-      to   { transform: translateX(0); }
-    }
-    .settings-backdrop {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.5); z-index: 199;
-    }
+    #settings-panel.open { display: block; animation: slideIn .2s ease forwards; }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    .settings-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 199; }
     .settings-backdrop.open { display: block; }
     .settings-title {
-      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
-      letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
-      margin-bottom: 24px;
-      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--font-mono); font-size: .9rem; color: var(--accent);
+      margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;
     }
-    .settings-close { cursor: pointer; color: var(--muted); font-size: 1.2rem; background: none; border: none; }
-    .settings-group { margin-bottom: 24px; }
+    .settings-close { cursor: pointer; color: var(--muted); font-size: 1.1rem; background: none; border: none; }
+    .settings-group { margin-bottom: 20px; }
     .settings-group-title {
-      font-family: var(--font-mono); font-size: .68rem;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
-      margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px;
+      font-family: var(--font-mono); font-size: .62rem;
+      text-transform: lowercase; color: var(--muted);
+      margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid var(--border);
     }
-    .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; }
-    .setting-label { font-family: var(--font-mono); font-size: .82rem; color: var(--text); }
-    .setting-desc  { font-family: var(--font-mono); font-size: .7rem; color: var(--muted); margin-top: 2px; }
-    .setting-control { display: flex; gap: 6px; flex-wrap: wrap; }
+    .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; }
+    .setting-label { font-family: var(--font-mono); font-size: .8rem; color: var(--text); }
+    .setting-desc  { font-family: var(--font-mono); font-size: .65rem; color: var(--muted); margin-top: 1px; }
+    .setting-control { display: flex; gap: 4px; flex-wrap: wrap; }
     .setting-pill {
-      background: var(--surface2); border: 1px solid var(--border);
-      color: var(--muted); padding: 4px 12px; border-radius: 20px;
-      cursor: pointer; font-family: var(--font-mono); font-size: .75rem;
-      transition: all var(--transition-fast);
+      background: var(--surface); border: none;
+      color: var(--muted); padding: 4px 10px; border-radius: 3px;
+      cursor: pointer; font-family: var(--font-mono); font-size: .72rem;
+      transition: color var(--transition-fast);
     }
     .setting-pill:hover { color: var(--text); }
-    .setting-pill.active { background: var(--accent); color: #0e0e0f; border-color: var(--accent); font-weight: 700; }
+    .setting-pill.active { color: var(--accent); }
 
-    .toggle { position: relative; display: inline-block; width: 40px; height: 22px; }
+    .toggle { position: relative; display: inline-block; width: 36px; height: 20px; }
     .toggle input { opacity: 0; width: 0; height: 0; }
     .toggle-slider {
       position: absolute; cursor: pointer; inset: 0;
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 22px; transition: background var(--transition-fast), border-color var(--transition-fast);
+      background: var(--surface); border-radius: 20px;
+      transition: background var(--transition-fast);
     }
     .toggle-slider::before {
-      content: '';
-      position: absolute;
-      height: 16px; width: 16px; left: 2px; bottom: 2px;
+      content: ''; position: absolute;
+      height: 14px; width: 14px; left: 3px; bottom: 3px;
       background: var(--muted); border-radius: 50%;
-      transition: transform var(--transition-fast), background var(--transition-fast);
-      will-change: transform;
+      transition: transform .15s, background .15s;
     }
-    .toggle input:checked + .toggle-slider { background: color-mix(in srgb, var(--accent) 20%, transparent); border-color: var(--accent); }
-    .toggle input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--accent); }
+    .toggle input:checked + .toggle-slider { background: var(--surface2); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(16px); background: var(--accent); }
 
-    .theme-swatches { display: flex; gap: 8px; }
+    .theme-swatches { display: flex; gap: 6px; }
     .swatch {
-      width: 26px; height: 26px; border-radius: 50%; cursor: pointer;
-      border: 2px solid transparent;
-      transition: transform var(--transition-fast), border-color var(--transition-fast);
-      will-change: transform;
+      width: 22px; height: 22px; border-radius: 50%; cursor: pointer;
+      border: 2px solid transparent; transition: transform .1s, border-color .1s;
     }
-    .swatch.active { border-color: var(--accent); transform: scale(1.2); }
-    .swatch-dark  { background: linear-gradient(135deg, #0e0e0f, #f5a623); }
-    .swatch-light { background: linear-gradient(135deg, #f5f3ef, #d4840d); }
-    .swatch-ocean { background: linear-gradient(135deg, #07111e, #38bdf8); }
-    .swatch-rose  { background: linear-gradient(135deg, #140a0f, #f472b6); }
+    .swatch.active { border-color: var(--accent); transform: scale(1.18); }
+    .swatch-dark  { background: #323437; }
+    .swatch-light { background: #e1e1de; border: 1px solid #b8b8b5; }
+    .swatch-ocean { background: #1a1b26; }
+    .swatch-rose  { background: #1c1b20; }
 
     .custom-text-area {
-      width: 100%; background: var(--surface2);
-      border: 1px solid var(--border); border-radius: var(--radius);
-      color: var(--text); font-family: var(--font-mono); font-size: .88rem;
-      padding: 14px; resize: vertical; min-height: 100px;
-      margin-bottom: 14px; outline: none;
-      transition: border-color var(--transition-fast);
+      width: 100%; background: var(--surface);
+      border: none; border-radius: var(--radius);
+      color: var(--text); font-family: var(--font-mono); font-size: .85rem;
+      padding: 12px; resize: vertical; min-height: 90px;
+      margin-bottom: 10px; outline: none;
     }
-    .custom-text-area:focus { border-color: var(--accent); }
+    .custom-text-area:focus { outline: 1px solid var(--accent); }
 
+    /* ── COUNTDOWN ── */
     #countdown-overlay {
       display: none; position: absolute; inset: 0;
-      background: color-mix(in srgb, var(--bg) 85%, transparent);
-      border-radius: 12px;
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
       align-items: center; justify-content: center;
-      z-index: 10; backdrop-filter: blur(4px);
+      z-index: 10; backdrop-filter: blur(3px); border-radius: 4px;
     }
     #countdown-overlay.show { display: flex; }
     .countdown-number {
-      font-family: var(--font-mono); font-size: 5rem;
-      font-weight: 200; color: var(--accent);
+      font-family: var(--font-mono); font-size: 4.5rem;
+      font-weight: 300; color: var(--accent);
       animation: countPulse 1s ease;
-      will-change: transform, opacity;
     }
     @keyframes countPulse {
-      0%   { transform: scale(1.4); opacity: 0; }
-      50%  { opacity: 1; }
+      0%   { transform: scale(1.3); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
 
+    /* ── HEATMAP ── */
+    .heatmap-section {
+      background: var(--surface); border-radius: var(--radius);
+      padding: 16px 20px; margin-bottom: 24px;
+    }
+    .heatmap-title {
+      font-family: var(--font-mono); font-size: .68rem;
+      text-transform: lowercase; color: var(--muted); margin-bottom: 14px;
+    }
+    .keyboard-heatmap {
+      display: flex; flex-direction: column; gap: 4px; align-items: center;
+    }
+    .kb-row { display: flex; gap: 4px; }
+    .kb-key {
+      width: 32px; height: 32px; border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: .65rem; color: var(--muted);
+      background: var(--surface2); transition: background .2s;
+      user-select: none;
+    }
+    .kb-key[data-wide="1.5"] { width: 48px; }
+    .kb-key[data-wide="1.75"] { width: 56px; }
+    .kb-key[data-wide="space"] { width: 160px; }
+    .kb-key.heat-1 { background: color-mix(in srgb, var(--accent) 20%, var(--surface2)); color: var(--text); }
+    .kb-key.heat-2 { background: color-mix(in srgb, var(--accent) 40%, var(--surface2)); color: var(--text); }
+    .kb-key.heat-3 { background: color-mix(in srgb, var(--accent) 60%, var(--surface2)); color: var(--bg); }
+    .kb-key.heat-4 { background: color-mix(in srgb, var(--accent) 80%, var(--surface2)); color: var(--bg); }
+    .kb-key.heat-err { background: color-mix(in srgb, var(--incorrect) 50%, var(--surface2)); color: var(--bg); }
+
+    /* ── STREAK / LEVEL BADGE ── */
+    .level-badge {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: .75rem; color: var(--muted);
+    }
+    .level-badge .lvl {
+      background: var(--accent); color: var(--bg);
+      padding: 2px 8px; border-radius: 3px; font-size: .7rem;
+    }
+
+    /* ── FOCUS MODE ── */
+    body.focus-mode header,
+    body.focus-mode .toolbar,
+    body.focus-mode .control-bar .shortcut-hint,
+    body.focus-mode footer { opacity: 0; pointer-events: none; transition: opacity .3s; }
+    body.focus-mode:not(:hover) header,
+    body.focus-mode:not(:hover) .toolbar,
+    body.focus-mode:not(:hover) footer { opacity: 0; }
+    body.focus-mode header,
+    body.focus-mode .toolbar,
+    body.focus-mode footer { opacity: 0; }
+    body.focus-mode:hover header,
+    body.focus-mode:hover .toolbar,
+    body.focus-mode:hover footer { opacity: .2; }
+
+    /* ── GHOST TEXT (PB replay) ── */
+    .ghost-char { position: relative; }
+    .ghost-char::after {
+      content: attr(data-ghost); position: absolute;
+      top: 0; left: 0; color: var(--accent); opacity: .3;
+      pointer-events: none;
+    }
+
+    /* ── SMOOTHNESS METER ── */
+    .smooth-bar {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 8px;
+    }
+    .smooth-track {
+      flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+    }
+    .smooth-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width .3s; }
+    .smooth-label { font-family: var(--font-mono); font-size: .68rem; color: var(--muted); min-width: 32px; }
+
+    /* ── LANG BADGE ── */
     .lang-badge {
       font-family: var(--font-mono); font-size: .7rem; color: var(--muted);
-      padding: 4px 10px; border: 1px solid var(--border); border-radius: 20px;
     }
 
+    /* ── FOOTER ── */
     footer {
-      text-align: center; padding: 20px;
-      border-top: 1px solid var(--border);
-      font-family: var(--font-mono); font-size: .7rem; color: var(--muted);
+      text-align: center; padding: 16px;
+      font-family: var(--font-mono); font-size: .65rem; color: var(--muted);
     }
-    footer span { color: var(--accent); }
 
+    /* ── TOAST ── */
     #toast {
-      position: fixed; bottom: 24px; left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: var(--surface); border: 1px solid var(--accent);
-      color: var(--text); padding: 10px 20px; border-radius: var(--radius);
-      font-family: var(--font-mono); font-size: .82rem;
-      opacity: 0;
-      transition: opacity .3s ease, transform .3s ease;
-      will-change: transform, opacity;
-      z-index: 999; pointer-events: none;
+      position: fixed; bottom: 20px; left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--surface2); color: var(--text); padding: 8px 16px;
+      border-radius: var(--radius); font-family: var(--font-mono); font-size: .78rem;
+      opacity: 0; transition: opacity .2s, transform .2s; z-index: 999; pointer-events: none;
     }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    @media (max-width:640px) {
-      header { padding: 14px 16px; }
-      main   { padding: 20px 16px; }
-      .typing-container { padding: 22px 18px; }
-      .live-stats { gap: 18px; }
-      .stat-value { font-size: 1.8rem; }
-      .toolbar { gap: 4px; }
-      .pill { padding: 4px 10px; font-size: .72rem; }
-      #settings-panel { width: 100%; }
-      .big-wpm { font-size: 4rem; }
-    }
+    /* ── SETTINGS PANEL SCROLL ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-    ::-webkit-scrollbar       { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+    @media (max-width:640px) {
+      header { padding: 12px 14px; }
+      main { padding: 0 14px 24px; }
+      .live-stats { gap: 20px; }
+      .stat-value { font-size: 1.8rem; }
+      #settings-panel { width: 100%; }
+      .big-wpm { font-size: 3.5rem; }
+    }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
 
-    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+    /* ── WORD COUNT TRACKER ── */
+    .wc-tracker {
+      font-family: var(--font-mono); font-size: .68rem; color: var(--muted);
+      text-align: center; margin-bottom: 6px;
+    }
+
+    /* ── PB BADGE ── */
+    .pb-badge {
+      display: none; background: var(--accent); color: var(--bg);
+      font-family: var(--font-mono); font-size: .72rem;
+      padding: 4px 10px; border-radius: 3px; animation: fadeUp .4s ease;
+    }
+    .pb-badge.show { display: inline-block; }
+
+    /* ── COMMAND PALETTE ── */
+    #cmd-palette {
+      display: none; position: fixed; top: 80px; left: 50%;
+      transform: translateX(-50%); width: 440px; max-width: 90vw;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 6px; z-index: 300; overflow: hidden;
+    }
+    #cmd-palette.open { display: block; animation: fadeUp .15s ease; }
+    #cmd-input {
+      width: 100%; background: none; border: none; border-bottom: 1px solid var(--border);
+      color: var(--text); font-family: var(--font-mono); font-size: .9rem;
+      padding: 14px 16px; outline: none;
+    }
+    .cmd-list { max-height: 260px; overflow-y: auto; }
+    .cmd-item {
+      padding: 10px 16px; font-family: var(--font-mono); font-size: .82rem;
+      color: var(--muted); cursor: pointer; display: flex; align-items: center; gap: 10px;
+      transition: background .1s;
+    }
+    .cmd-item:hover, .cmd-item.selected { background: var(--surface); color: var(--text); }
+    .cmd-item .cmd-icon { color: var(--accent); font-size: .75rem; width: 16px; text-align: center; }
+    .cmd-backdrop { display: none; position: fixed; inset: 0; z-index: 299; }
+    .cmd-backdrop.open { display: block; }
+
+    /* ── ACCURACY RING ── */
+    .acc-ring-wrap { position: relative; width: 56px; height: 56px; }
+    .acc-ring-wrap svg { transform: rotate(-90deg); }
+    .acc-ring-track { fill: none; stroke: var(--border); stroke-width: 4; }
+    .acc-ring-fill { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset .5s ease; }
+    .acc-ring-text {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: .7rem; color: var(--text);
+    }
+
+    /* ── RECENT SCORES ── */
+    .recent-scores {
+      display: flex; gap: 6px; align-items: flex-end; height: 40px;
+      margin-left: auto;
+    }
+    .score-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .score-bar {
+      width: 10px; background: var(--border); border-radius: 2px;
+      transition: height .3s ease;
+    }
+    .score-bar.latest { background: var(--accent); }
+    .score-bar-val { font-family: var(--font-mono); font-size: .55rem; color: var(--muted); }
   </style>
 </head>
 <body>
 
-<div id="mobile-wall" role="alert" aria-live="assertive">
-  <div class="mw-corner-tl"></div>
-  <div class="mw-corner-br"></div>
+<div id="mobile-wall" role="alert">
   <div class="mw-inner">
-    <div class="mw-icon-wrap">
-      <svg class="mw-keyboard-svg" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="6" y="18" width="60" height="36" rx="6" stroke="#f5a623" stroke-width="2.5" fill="rgba(245,166,35,0.06)"/>
-        <rect x="13" y="26" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
-        <rect x="23" y="26" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
-        <rect x="33" y="26" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
-        <rect x="43" y="26" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
-        <rect x="53" y="26" width="6" height="6" rx="1.5" fill="#f5a623" opacity="0.5"/>
-        <rect x="13" y="35" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
-        <rect x="23" y="35" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
-        <rect x="33" y="35" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
-        <rect x="43" y="35" width="7" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
-        <rect x="53" y="35" width="6" height="6" rx="1.5" fill="#f5a623" opacity="0.35"/>
-        <rect x="20" y="44" width="32" height="6" rx="1.5" fill="#f5a623" opacity="0.25"/>
-      </svg>
-      <div class="mw-slash" aria-hidden="true"></div>
-    </div>
-    <div class="mw-eyebrow">// device.type !== "desktop"</div>
-    <h1 class="mw-headline">PC only.<br><span>No touch.</span></h1>
-    <p class="mw-sub">TypeForge requires a physical keyboard.<br>Mobile input is not supported.</p>
-    <div class="mw-divider"></div>
-    <div class="mw-badge"><span class="mw-badge-dot"></span>Switch to desktop to start typing</div>
+    <div style="font-size: 2rem;">⌨</div>
+    <h1 class="mw-headline">Type<span>Forge</span></h1>
+    <p class="mw-sub">requires a physical keyboard</p>
+    <p class="mw-sub">open on desktop to continue</p>
   </div>
+</div>
+
+<!-- COMMAND PALETTE -->
+<div class="cmd-backdrop" id="cmd-backdrop"></div>
+<div id="cmd-palette" role="dialog" aria-label="Command palette">
+  <input type="text" id="cmd-input" placeholder="type a command…" autocomplete="off" spellcheck="false"/>
+  <div class="cmd-list" id="cmd-list"></div>
 </div>
 
 <header>
   <div class="logo">
-    <div class="forge-icon" aria-hidden="true">⌨</div>
-    Type<span>Forge</span>
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h2v2H4V7zm3 0h2v2H7V7zm3 0h2v2h-2V7zm3 0h2v2h-2V7zm3 0h2v2h-2V7zM4 10h2v2H4v-2zm3 0h2v2H7v-2zm3 0h2v2h-2v-2zm3 0h2v2h-2v-2zm3 0h2v2h-2v-2zM4 13h8v2H4v-2zm10 0h6v2h-6v-2z"/></svg>
+    </div>
+    typeforge
   </div>
   <div class="header-actions">
-    <span class="lang-badge" id="lang-badge">EN</span>
-    <button class="icon-btn" id="sound-btn" title="Toggle sound" aria-label="Toggle sound effects">🔇 Sound</button>
-    <button class="icon-btn" id="settings-btn" aria-label="Open settings">⚙ Settings</button>
+    <div class="level-badge">
+      <span id="header-streak">streak: 0</span>
+      <span class="lvl" id="header-level">lv 1</span>
+    </div>
+    <span class="lang-badge" id="lang-badge">en</span>
+    <button class="header-btn" id="focus-btn" title="Focus mode">
+      <svg viewBox="0 0 24 24"><path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/></svg>
+    </button>
+    <button class="header-btn" id="cmd-btn" title="Command palette (Ctrl+K)">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 0 0 16 9.5 6.5 6.5 0 0 0 9.5 3 6.5 6.5 0 0 0 3 9.5 6.5 6.5 0 0 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </button>
+    <button class="header-btn" id="sound-btn" title="Toggle sound">
+      <svg id="sound-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+    </button>
+    <button class="header-btn" id="settings-btn" title="Settings">
+      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 9.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+    </button>
   </div>
 </header>
 
 <div class="settings-backdrop" id="settings-backdrop"></div>
 <aside id="settings-panel" role="dialog" aria-label="Settings" aria-modal="true">
   <div class="settings-title">
-    Settings
-    <button class="settings-close" id="settings-close" aria-label="Close settings">✕</button>
+    settings
+    <button class="settings-close" id="settings-close">✕</button>
   </div>
 
   <div class="settings-group">
-    <div class="settings-group-title">Theme</div>
+    <div class="settings-group-title">theme</div>
     <div class="setting-row">
-      <span class="setting-label">Color</span>
+      <span class="setting-label">color</span>
       <div class="theme-swatches">
-        <div class="swatch swatch-dark active" data-theme="" title="Dark (Amber)" tabindex="0" role="button" aria-label="Dark amber theme"></div>
-        <div class="swatch swatch-light" data-theme="light" title="Light" tabindex="0" role="button" aria-label="Light theme"></div>
-        <div class="swatch swatch-ocean" data-theme="ocean" title="Ocean" tabindex="0" role="button" aria-label="Ocean theme"></div>
-        <div class="swatch swatch-rose" data-theme="rose" title="Rose" tabindex="0" role="button" aria-label="Rose theme"></div>
+        <div class="swatch swatch-dark active" data-theme="" title="serika dark" tabindex="0" role="button"></div>
+        <div class="swatch swatch-light" data-theme="light" title="light" tabindex="0" role="button"></div>
+        <div class="swatch swatch-ocean" data-theme="ocean" title="tokyo night" tabindex="0" role="button"></div>
+        <div class="swatch swatch-rose" data-theme="rose" title="rosé pine" tabindex="0" role="button"></div>
       </div>
     </div>
   </div>
 
   <div class="settings-group">
-    <div class="settings-group-title">Typography</div>
+    <div class="settings-group-title">typography</div>
     <div class="setting-row">
-      <div><div class="setting-label">Font</div></div>
+      <div><div class="setting-label">font</div></div>
       <div class="setting-control">
-        <button class="setting-pill active" data-font="jetbrains">JetBrains</button>
+        <button class="setting-pill active" data-font="roboto">Roboto Mono</button>
         <button class="setting-pill" data-font="ibm">IBM Plex</button>
         <button class="setting-pill" data-font="courier">Courier</button>
       </div>
     </div>
     <div class="setting-row">
-      <div><div class="setting-label">Size</div></div>
+      <div><div class="setting-label">size</div></div>
       <div class="setting-control">
-        <button class="setting-pill" data-size="18">S</button>
-        <button class="setting-pill active" data-size="22">M</button>
-        <button class="setting-pill" data-size="27">L</button>
-        <button class="setting-pill" data-size="32">XL</button>
+        <button class="setting-pill" data-size="16">xs</button>
+        <button class="setting-pill" data-size="18">s</button>
+        <button class="setting-pill active" data-size="22">m</button>
+        <button class="setting-pill" data-size="26">l</button>
+        <button class="setting-pill" data-size="32">xl</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-group">
+    <div class="settings-group-title">behavior</div>
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">restrict backspace</div>
+        <div class="setting-desc">no fixing mistakes</div>
+      </div>
+      <label class="toggle"><input type="checkbox" id="backspace-toggle"/><span class="toggle-slider"></span></label>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-label">sound effects</div></div>
+      <label class="toggle"><input type="checkbox" id="sound-toggle"/><span class="toggle-slider"></span></label>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-label">animations</div></div>
+      <label class="toggle"><input type="checkbox" id="anim-toggle" checked/><span class="toggle-slider"></span></label>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-label">caret style</div></div>
+      <div class="setting-control">
+        <button class="setting-pill active" data-caret="caret-line">line</button>
+        <button class="setting-pill" data-caret="caret-block">block</button>
       </div>
     </div>
     <div class="setting-row">
       <div>
-        <div class="setting-label">Dyslexia Font</div>
-        <div class="setting-desc">OpenDyslexic font</div>
+        <div class="setting-label">smooth caret</div>
+        <div class="setting-desc">animated cursor movement</div>
       </div>
-      <label class="toggle" aria-label="Toggle dyslexia-friendly font">
-        <input type="checkbox" id="dyslexia-toggle"/>
-        <span class="toggle-slider"></span>
-      </label>
+      <label class="toggle"><input type="checkbox" id="smooth-caret-toggle" checked/><span class="toggle-slider"></span></label>
     </div>
-  </div>
-
-  <div class="settings-group">
-    <div class="settings-group-title">Behavior</div>
     <div class="setting-row">
       <div>
-        <div class="setting-label">Restrict Backspace</div>
-        <div class="setting-desc">No fixing mistakes</div>
+        <div class="setting-label">blind mode</div>
+        <div class="setting-desc">no error highlighting</div>
       </div>
-      <label class="toggle" aria-label="Toggle backspace restriction">
-        <input type="checkbox" id="backspace-toggle"/>
-        <span class="toggle-slider"></span>
-      </label>
+      <label class="toggle"><input type="checkbox" id="blind-toggle"/><span class="toggle-slider"></span></label>
     </div>
     <div class="setting-row">
-      <div><div class="setting-label">Sound Effects</div></div>
-      <label class="toggle" aria-label="Toggle sound effects">
-        <input type="checkbox" id="sound-toggle"/>
-        <span class="toggle-slider"></span>
-      </label>
+      <div>
+        <div class="setting-label">always show decimal</div>
+        <div class="setting-desc">wpm with one decimal</div>
+      </div>
+      <label class="toggle"><input type="checkbox" id="decimal-toggle"/><span class="toggle-slider"></span></label>
     </div>
+  </div>
+
+  <div class="settings-group">
+    <div class="settings-group-title">language</div>
     <div class="setting-row">
-      <div><div class="setting-label">Animations</div></div>
-      <label class="toggle" aria-label="Toggle animations">
-        <input type="checkbox" id="anim-toggle" checked/>
-        <span class="toggle-slider"></span>
-      </label>
-    </div>
-    <div class="setting-row">
-      <div><div class="setting-label">Caret Style</div></div>
-      <div class="setting-control">
-        <button class="setting-pill active" data-caret="caret-line">Line</button>
-        <button class="setting-pill" data-caret="caret-block">Block</button>
+      <div class="setting-control" style="flex-wrap:wrap;gap:5px">
+        <button class="setting-pill active" data-lang="en">🇬🇧 english</button>
+        <button class="setting-pill" data-lang="ne">🇳🇵 nepali</button>
+        <button class="setting-pill" data-lang="hi">🇮🇳 hindi</button>
+        <button class="setting-pill" data-lang="es">🇪🇸 spanish</button>
+        <button class="setting-pill" data-lang="fr">🇫🇷 french</button>
+        <button class="setting-pill" data-lang="de">🇩🇪 german</button>
       </div>
     </div>
   </div>
 
   <div class="settings-group">
-    <div class="settings-group-title">Language</div>
+    <div class="settings-group-title">features</div>
     <div class="setting-row">
-      <div class="setting-control" style="flex-wrap:wrap;gap:6px">
-        <button class="setting-pill active" data-lang="en">🇬🇧 English</button>
-        <button class="setting-pill" data-lang="ne">🇳🇵 Nepali</button>
-        <button class="setting-pill" data-lang="hi">🇮🇳 Hindi</button>
-        <button class="setting-pill" data-lang="es">🇪🇸 Spanish</button>
+      <div>
+        <div class="setting-label">ghost mode (pb)</div>
+        <div class="setting-desc">replay personal best</div>
       </div>
+      <label class="toggle"><input type="checkbox" id="ghost-toggle"/><span class="toggle-slider"></span></label>
     </div>
-  </div>
-
-  <div class="settings-group">
-    <div class="settings-group-title">Keyboard Layout</div>
     <div class="setting-row">
-      <div class="setting-control">
-        <button class="setting-pill active" data-layout="qwerty">QWERTY</button>
-        <button class="setting-pill" data-layout="dvorak">Dvorak</button>
-        <button class="setting-pill" data-layout="colemak">Colemak</button>
+      <div>
+        <div class="setting-label">keyboard heatmap</div>
+        <div class="setting-desc">show after results</div>
       </div>
+      <label class="toggle"><input type="checkbox" id="heatmap-toggle" checked/><span class="toggle-slider"></span></label>
     </div>
   </div>
 </aside>
 
 <main>
   <nav class="toolbar" role="toolbar" aria-label="Test configuration">
-    <span class="mode-label">mode</span>
-    <button class="pill active" data-mode-type="time" aria-pressed="true">⏱ time</button>
-    <button class="pill" data-mode-type="words" aria-pressed="false">📝 words</button>
-    <button class="pill" data-mode-type="quote" aria-pressed="false">💬 quote</button>
-    <button class="pill" data-mode-type="custom" aria-pressed="false">✏ custom</button>
+    <button class="pill active" data-mode-type="time">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+      time
+    </button>
+    <button class="pill" data-mode-type="words">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+      words
+    </button>
+    <button class="pill" data-mode-type="quote">
+      <svg viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+      quote
+    </button>
+    <button class="pill" data-mode-type="zen">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      zen
+    </button>
+    <button class="pill" data-mode-type="custom">
+      <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+      custom
+    </button>
 
     <div class="toolbar-sep"></div>
-    <span class="mode-label" id="sub-label">time</span>
 
-    <div id="time-opts">
-      <button class="pill active" data-time="15" aria-pressed="true">15</button>
-      <button class="pill" data-time="30" aria-pressed="false">30</button>
-      <button class="pill" data-time="60" aria-pressed="false">60</button>
-      <button class="pill" data-time="120" aria-pressed="false">120</button>
+    <div id="time-opts" style="display:flex;gap:2px">
+      <button class="pill active" data-time="15">15</button>
+      <button class="pill" data-time="30">30</button>
+      <button class="pill" data-time="60">60</button>
+      <button class="pill" data-time="120">120</button>
     </div>
-    <div id="words-opts" style="display:none">
-      <button class="pill active" data-words="10" aria-pressed="true">10</button>
-      <button class="pill" data-words="25" aria-pressed="false">25</button>
-      <button class="pill" data-words="50" aria-pressed="false">50</button>
-      <button class="pill" data-words="100" aria-pressed="false">100</button>
+    <div id="words-opts" style="display:none;gap:2px">
+      <button class="pill active" data-words="10">10</button>
+      <button class="pill" data-words="25">25</button>
+      <button class="pill" data-words="50">50</button>
+      <button class="pill" data-words="100">100</button>
     </div>
-    <div id="quote-opts" style="display:none">
-      <button class="pill active" data-quote-len="short" aria-pressed="true">short</button>
-      <button class="pill" data-quote-len="medium" aria-pressed="false">medium</button>
-      <button class="pill" data-quote-len="long" aria-pressed="false">long</button>
+    <div id="quote-opts" style="display:none;gap:2px">
+      <button class="pill active" data-quote-len="short">short</button>
+      <button class="pill" data-quote-len="medium">medium</button>
+      <button class="pill" data-quote-len="long">long</button>
+    </div>
+    <div id="zen-opts" style="display:none">
+      <span style="font-family:var(--font-mono);font-size:.72rem;color:var(--muted);padding:6px 10px">press esc to finish</span>
     </div>
     <div id="custom-opts" style="display:none">
-      <span class="mode-label">enter text below</span>
+      <span style="font-family:var(--font-mono);font-size:.72rem;color:var(--muted);padding:6px 10px">enter text below</span>
     </div>
   </nav>
 
-  <div id="custom-input-wrap" style="display:none;width:100%;margin-bottom:20px">
-    <textarea class="custom-text-area" id="custom-text-input" placeholder="Paste or type your custom text here…" rows="4" aria-label="Custom text input"></textarea>
-    <button class="btn btn-primary" id="custom-apply-btn">Apply Text</button>
+  <div id="custom-input-wrap" style="display:none;width:100%;margin-bottom:16px">
+    <textarea class="custom-text-area" id="custom-text-input" placeholder="paste or type your custom text here…" rows="3"></textarea>
+    <button class="btn btn-primary" id="custom-apply-btn" style="font-size:.78rem">apply</button>
   </div>
 
-  <div class="live-stats" role="status" aria-live="polite" aria-atomic="false">
+  <div class="live-stats" role="status" aria-live="polite">
     <div class="stat-item">
       <div class="stat-value" id="live-wpm">–</div>
       <div class="stat-label">wpm</div>
@@ -810,16 +823,17 @@
     </div>
     <div class="stat-item">
       <div class="stat-value" id="live-acc">–</div>
-      <div class="stat-label">acc %</div>
+      <div class="stat-label">acc</div>
     </div>
   </div>
 
-  <div class="progress-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Test progress">
+  <div class="progress-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
     <div class="progress-fill" id="progress-fill"></div>
   </div>
 
-  <div id="typing-container" class="typing-container caret-line" tabindex="0"
-       role="textbox" aria-multiline="true" aria-label="Typing area — click or press Tab to focus">
+  <div class="wc-tracker" id="wc-tracker" style="display:none"></div>
+
+  <div id="typing-container" class="typing-container caret-line" tabindex="0" role="textbox" aria-multiline="true">
     <div id="countdown-overlay" aria-hidden="true">
       <div class="countdown-number" id="countdown-num">3</div>
     </div>
@@ -830,45 +844,67 @@
   </div>
 
   <div class="control-bar">
-    <button class="btn btn-primary" id="start-btn">▶ Start</button>
-    <button class="btn btn-ghost" id="reset-btn">↺ Reset</button>
+    <button class="btn btn-primary" id="start-btn">start</button>
+    <button class="btn-icon" id="reset-btn" title="Reset (Esc)">
+      <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+    </button>
     <span class="shortcut-hint">
-      <span class="kbd">Tab</span> focus · <span class="kbd">Esc</span> reset · <span class="kbd">Enter</span> restart
+      <span class="kbd">tab</span>+<span class="kbd">enter</span> restart · <span class="kbd">esc</span> reset · <span class="kbd">ctrl+k</span> commands
     </span>
   </div>
 
   <section id="results-screen" aria-label="Test results">
     <div class="results-header">
-      <h2>Test Complete</h2>
-      <div class="big-wpm" id="res-wpm">0 <span class="big-unit">wpm</span></div>
-    </div>
-    <div class="results-grid">
-      <div class="result-card"><div class="result-card-val good" id="res-acc">0%</div><div class="result-card-key">Accuracy</div></div>
-      <div class="result-card"><div class="result-card-val" id="res-raw">0</div><div class="result-card-key">Raw WPM</div></div>
-      <div class="result-card"><div class="result-card-val bad" id="res-errors">0</div><div class="result-card-key">Errors</div></div>
-      <div class="result-card"><div class="result-card-val" id="res-chars">0/0</div><div class="result-card-key">Chars ✓/✗</div></div>
-      <div class="result-card"><div class="result-card-val" id="res-time">0s</div><div class="result-card-key">Time</div></div>
-      <div class="result-card"><div class="result-card-val" id="res-consistency">0%</div><div class="result-card-key">Consistency</div></div>
-    </div>
-    <div class="chart-container">
-      <div class="chart-title">Performance Over Time</div>
-      <canvas id="perf-chart" height="120"></canvas>
-    </div>
-    <div class="mistakes-section">
-      <div class="mistakes-title">Mistake Breakdown</div>
-      <div class="mistake-chips" id="mistake-chips">
-        <span class="no-mistakes">✓ No mistakes recorded</span>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:.65rem;color:var(--muted);margin-bottom:4px;text-transform:lowercase">wpm</div>
+        <div class="big-wpm" id="res-wpm">0 <span class="big-unit">wpm</span></div>
+      </div>
+      <div class="results-meta">
+        <div class="results-meta-row">acc: <span class="results-meta-val" id="res-acc-inline">–</span></div>
+        <div class="results-meta-row">raw: <span class="results-meta-val" id="res-raw-inline">–</span></div>
+        <div class="results-meta-row">time: <span class="results-meta-val" id="res-time-inline">–</span></div>
+      </div>
+      <div style="margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <span class="pb-badge" id="pb-badge">🏆 new pb!</span>
+        <div class="recent-scores" id="recent-scores"></div>
       </div>
     </div>
-    <div class="results-actions">
-      <button class="btn btn-primary" id="retry-btn">↺ Retry Same</button>
-      <button class="btn btn-ghost" id="new-test-btn">→ New Test</button>
-      <button class="btn btn-ghost" id="share-btn">📤 Share Result</button>
+
+    <div class="results-grid">
+      <div class="result-card"><div class="result-card-val good" id="res-acc">0%</div><div class="result-card-key">accuracy</div></div>
+      <div class="result-card"><div class="result-card-val" id="res-raw">0</div><div class="result-card-key">raw wpm</div></div>
+      <div class="result-card"><div class="result-card-val bad" id="res-errors">0</div><div class="result-card-key">errors</div></div>
+      <div class="result-card"><div class="result-card-val" id="res-chars">0/0</div><div class="result-card-key">chars ✓/✗</div></div>
+      <div class="result-card"><div class="result-card-val" id="res-time">0s</div><div class="result-card-key">time</div></div>
+      <div class="result-card"><div class="result-card-val" id="res-consistency">0%</div><div class="result-card-key">consistency</div></div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-title">wpm over time</div>
+      <canvas id="perf-chart" height="110"></canvas>
+    </div>
+
+    <div class="mistakes-section">
+      <div class="mistakes-title">mistake breakdown</div>
+      <div class="mistake-chips" id="mistake-chips">
+        <span class="no-mistakes">✓ no mistakes</span>
+      </div>
+    </div>
+
+    <div class="heatmap-section" id="heatmap-section" style="display:none">
+      <div class="heatmap-title">keyboard heatmap (errors in red)</div>
+      <div class="keyboard-heatmap" id="keyboard-heatmap"></div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
+      <button class="btn btn-primary" id="retry-btn">↺ retry</button>
+      <button class="btn btn-ghost" id="new-test-btn">→ new test</button>
+      <button class="btn btn-ghost" id="share-btn">share</button>
     </div>
   </section>
 </main>
 
-<footer>TypeForge — built for speed · <span>precision</span> · flow</footer>
+<footer>typeforge · <span style="color:var(--accent)">built for flow</span></footer>
 <div id="toast" role="alert" aria-live="assertive"></div>
 
 <script>
@@ -876,28 +912,18 @@
 
 (function detectMobile() {
   const wall = document.getElementById('mobile-wall');
-  const isMobile = () =>
-    window.innerWidth <= 768 ||
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-    ('ontouchstart' in window && !window.matchMedia('(pointer: fine)').matches);
-
+  const isMobile = () => window.innerWidth <= 768 || /Android|iPhone|iPad/i.test(navigator.userAgent);
   if (isMobile()) wall.classList.add('show');
-
-  let rafId = null;
-  window.addEventListener('resize', () => {
-    if (rafId) return;
-    rafId = requestAnimationFrame(() => {
-      wall.classList.toggle('show', isMobile());
-      rafId = null;
-    });
-  });
+  window.addEventListener('resize', () => wall.classList.toggle('show', isMobile()));
 })();
 
 const WORD_BANKS = {
   en: ["the","be","to","of","and","a","in","that","have","it","for","not","on","with","he","as","you","do","at","this","but","his","by","from","they","we","say","her","she","or","an","will","my","one","all","would","there","their","what","so","up","out","if","about","who","get","which","go","me","when","make","can","like","time","no","just","him","know","take","people","into","year","your","good","some","could","them","see","other","than","then","now","look","only","come","its","over","think","also","back","after","use","two","how","our","work","first","well","way","even","new","want","because","any","these","give","day","most","us","great","between","need","large","often","hand","high","place","hold","without","again","still","around","though","much","before","right","too","mean","old","while","last","few","another","turn","put","here","always","those","move","state","never","become","number","away","tell","public","feel"],
-  ne: ["छ","गर्न","भयो","हो","गर्छ","मा","को","र","एक","यो","ले","गर्नु","पनि","छन्","भन्न","हुन","आउन","जान","देख्न","बोल्न","खान","पिउन","सुन्न","पढ्न","लेख्न","काम","घर","मान्छे","बच्चा","पानी","खाना","समय","दिन","राम्रो","ठूलो","सानो","नयाँ","पुरानो","राम्ररी","साथी","परिवार","देश","सहर","गाउँ","स्कूल","किताब","हातले","आँखा","मुटु","मन","बुझ्न","सिक्न","भन्छ","जान्छ","आउँछ","गर्छौ","छौ","हुन्छ"],
-  hi: ["का","है","में","की","एक","और","यह","से","हो","को","पर","इस","कि","था","के","पर","वह","भी","आप","तो","हम","कर","मैं","पर","थे","ने","तक","जो","या","हो","उस","इन","कभी","अब","यहाँ","वहाँ","सब","कुछ","बड़ा","छोटा","अच्छा","बुरा","नया","पुराना","काम","घर","लोग","दिन","समय","पानी","खाना","देश","शहर","स्कूल","किताब","दिल","मन","जीवन","प्यार","दोस्त","परिवार","भारत"],
-  es: ["el","la","de","que","y","a","en","un","ser","se","no","haber","por","con","su","para","como","estar","tener","le","lo","todo","pero","más","hacer","o","poder","decir","este","ir","otro","ese","la","si","me","ya","ver","porque","dar","cuando","él","muy","sin","vez","mucho","saber","qué","sobre","mi","algunos","tiempo","también","hasta","desde","grande","hombre","mujer","día","año","parte","lugar","vida","manera","noche","ciudad","trabajo","mano","ejemplo","mundo","mismo","gobierno","país","punto","junto","caso","mismo"]
+  ne: ["छ","गर्न","भयो","हो","गर्छ","मा","को","र","एक","यो","ले","पनि","छन्","भन्न","हुन","आउन","जान","देख्न","बोल्न","खान","पिउन","सुन्न","पढ्न","लेख्न","काम","घर","मान्छे","पानी","खाना","समय","दिन","राम्रो","ठूलो","सानो","नयाँ","पुरानो","साथी","परिवार","देश","सहर","गाउँ","किताब","मन","बुझ्न","सिक्न","हुन्छ"],
+  hi: ["का","है","में","की","एक","और","यह","से","हो","को","पर","इस","कि","था","के","वह","भी","आप","तो","हम","कर","मैं","थे","ने","तक","जो","या","उस","इन","कभी","अब","यहाँ","वहाँ","सब","कुछ","बड़ा","छोटा","अच्छा","नया","पुराना","काम","घर","लोग","दिन","समय","पानी","खाना","देश","शहर","दिल","मन","जीवन","प्यार","दोस्त","परिवार"],
+  es: ["el","la","de","que","y","a","en","un","ser","se","no","haber","por","con","su","para","como","estar","tener","le","lo","todo","pero","más","hacer","o","poder","decir","este","ir","otro","ese","si","me","ya","ver","porque","dar","cuando","muy","sin","vez","mucho","saber","sobre","mi","tiempo","también","hasta","desde","grande","hombre","mujer","día","año","parte","lugar","vida","noche","ciudad","trabajo"],
+  fr: ["le","de","un","être","et","à","il","avoir","ne","je","son","que","se","qui","ce","dans","en","du","elle","au","les","des","sur","pas","mais","comme","pour","par","avec","tout","plus","pouvoir","aller","nous","vous","leur","car","voir","bien","homme","femme","jour","an","temps","vie","faire","dire","savoir","vouloir","prendre","venir","donner"],
+  de: ["der","die","das","und","ist","in","zu","den","von","mit","sich","des","auf","für","an","dem","nicht","ein","eine","auch","es","sie","hat","er","ich","so","war","als","aber","man","noch","aus","haben","werden","mehr","wir","durch","bei","nach","über","vor","muss","uns","sein","oder","wie","wenn","kann","ihr","zwischen","neue","bis"]
 };
 
 const QUOTES = {
@@ -909,16 +935,22 @@ const QUOTES = {
     "Life is what happens when you are busy making other plans."
   ],
   medium: [
-    "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it.",
-    "In the middle of every difficulty lies opportunity. The measure of intelligence is the ability to change and adapt to a given situation.",
-    "It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change and willing to adapt."
+    "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.",
+    "In the middle of every difficulty lies opportunity. The measure of intelligence is the ability to change.",
+    "It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change."
   ],
   long: [
-    "Two roads diverged in a wood, and I took the one less traveled by, and that has made all the difference. The woods are lovely, dark and deep, but I have promises to keep, and miles to go before I sleep.",
-    "We shall fight on the beaches, we shall fight on the landing grounds, we shall fight in the fields and in the streets, we shall fight in the hills; we shall never surrender.",
-    "Ask not what your country can do for you, ask what you can do for your country. The torch has been passed to a new generation of Americans."
+    "Two roads diverged in a wood, and I took the one less traveled by, and that has made all the difference in the world.",
+    "We shall fight on the beaches, we shall fight on the landing grounds, we shall fight in the fields and in the streets.",
+    "Ask not what your country can do for you, ask what you can do for your country, for the greater good of all."
   ]
 };
+
+const KB_ROWS = [
+  ['q','w','e','r','t','y','u','i','o','p'],
+  ['a','s','d','f','g','h','j','k','l'],
+  ['z','x','c','v','b','n','m']
+];
 
 const DOM = {
   wordsDisplay:     document.getElementById('words-display'),
@@ -944,7 +976,6 @@ const DOM = {
   soundToggle:      document.getElementById('sound-toggle'),
   backspaceToggle:  document.getElementById('backspace-toggle'),
   animToggle:       document.getElementById('anim-toggle'),
-  dyslexiaToggle:   document.getElementById('dyslexia-toggle'),
   resWpm:           document.getElementById('res-wpm'),
   resAcc:           document.getElementById('res-acc'),
   resRaw:           document.getElementById('res-raw'),
@@ -957,11 +988,21 @@ const DOM = {
   settingsBackdrop: document.getElementById('settings-backdrop'),
   customInputWrap:  document.getElementById('custom-input-wrap'),
   customTextInput:  document.getElementById('custom-text-input'),
-  subLabel:         document.getElementById('sub-label'),
   timeOpts:         document.getElementById('time-opts'),
   wordsOpts:        document.getElementById('words-opts'),
   quoteOpts:        document.getElementById('quote-opts'),
+  zenOpts:          document.getElementById('zen-opts'),
   customOpts:       document.getElementById('custom-opts'),
+  wcTracker:        document.getElementById('wc-tracker'),
+  heatmapSection:   document.getElementById('heatmap-section'),
+  keyboardHeatmap:  document.getElementById('keyboard-heatmap'),
+  pbBadge:          document.getElementById('pb-badge'),
+  recentScores:     document.getElementById('recent-scores'),
+  resAccInline:     document.getElementById('res-acc-inline'),
+  resRawInline:     document.getElementById('res-raw-inline'),
+  resTimeInline:    document.getElementById('res-time-inline'),
+  headerStreak:     document.getElementById('header-streak'),
+  headerLevel:      document.getElementById('header-level'),
 };
 
 const state = {
@@ -984,31 +1025,75 @@ const state = {
   running: false,
   finished: false,
 
-  // ── FIX: separate tracking for correct-word chars vs all chars ──
-  // correctWordChars: chars from words that were fully typed correctly (used for WPM)
-  // correctChars: all correctly typed chars including partial words (used for accuracy)
-  correctWordChars: 0,  // for WPM calculation — only fully correct words count
-  correctChars: 0,      // for accuracy numerator
-  incorrectChars: 0,    // for accuracy denominator
+  correctWordChars: 0,
+  correctChars: 0,
+  incorrectChars: 0,
   totalKeystrokes: 0,
   mistakeMap: {},
+  keyMistakeMap: {},
+  keyCorrectMap: {},
   wpmHistory: [],
   accHistory: [],
   rawHistory: [],
-
-  // Per-word tracking to determine if a word was typed perfectly
-  // wordErrors[wordIdx] = count of errors made while typing that word
   wordErrors: [],
+  keystrokeTimings: [],
+  lastKeystrokeTime: null,
 
   sound: false,
   backspaceRestricted: false,
   animations: true,
+  blindMode: false,
+  smoothCaret: true,
+  showDecimal: false,
+  showHeatmap: true,
+  ghostMode: false,
 
   lastWords: [],
   lineHeight: 40,
   audioCtx: null,
   scrollRaf: null,
+
+  // Persistence
+  personalBests: {},
+  scores: [],
+  streak: 0,
+  level: 1,
+  totalTests: 0,
 };
+
+// Load persistence
+function loadPersistence() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('tf_data') || '{}');
+    state.personalBests = saved.pbs || {};
+    state.scores = saved.scores || [];
+    state.streak = saved.streak || 0;
+    state.level = saved.level || 1;
+    state.totalTests = saved.totalTests || 0;
+    updateHeaderBadges();
+  } catch(e) {}
+}
+
+function savePersistence() {
+  try {
+    localStorage.setItem('tf_data', JSON.stringify({
+      pbs: state.personalBests,
+      scores: state.scores.slice(-50),
+      streak: state.streak,
+      level: state.level,
+      totalTests: state.totalTests,
+    }));
+  } catch(e) {}
+}
+
+function updateHeaderBadges() {
+  DOM.headerStreak.textContent = `streak: ${state.streak}`;
+  DOM.headerLevel.textContent = `lv ${state.level}`;
+}
+
+function getPbKey() {
+  return `${state.mode}_${state.mode === 'time' ? state.timeLimit : state.wordCount}_${state.lang}`;
+}
 
 function shuffle(arr) {
   const a = [...arr];
@@ -1018,50 +1103,44 @@ function shuffle(arr) {
   }
   return a;
 }
-
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
 function generateWords() {
   if (state.mode === 'quote') {
-    const quotes = QUOTES[state.quoteLen];
-    return quotes[Math.floor(Math.random() * quotes.length)].split(' ');
+    return QUOTES[state.quoteLen][Math.floor(Math.random() * QUOTES[state.quoteLen].length)].split(' ');
   }
   if (state.mode === 'custom' && state.customText.trim()) {
     return state.customText.trim().split(/\s+/);
+  }
+  if (state.mode === 'zen') {
+    const bank = WORD_BANKS[state.lang] || WORD_BANKS.en;
+    return shuffle(bank).concat(shuffle(bank)).concat(shuffle(bank));
   }
   const bank = WORD_BANKS[state.lang] || WORD_BANKS.en;
   const count = state.mode === 'time' ? 200 : state.wordCount;
   const shuffled = shuffle(bank);
   const words = [];
-  while (words.length < count) {
-    words.push(...shuffled.slice(0, Math.min(shuffled.length, count - words.length)));
-  }
+  while (words.length < count) words.push(...shuffled.slice(0, Math.min(shuffled.length, count - words.length)));
   return words.slice(0, count);
 }
 
 function renderWords(words) {
   state.words = words;
   state.charMap = [];
-  // Initialize per-word error counters
   state.wordErrors = new Array(words.length).fill(0);
 
   const frag = document.createDocumentFragment();
-
   words.forEach((word, wi) => {
     const wordEl = document.createElement('span');
     wordEl.className = 'word';
-
     for (let ci = 0; ci < word.length; ci++) {
-      const ch = word[ci];
       const charEl = document.createElement('span');
       charEl.className = 'char';
-      charEl.textContent = ch;
-      state.charMap.push({ type: 'char', wordIdx: wi, charIdx: ci, el: charEl, char: ch });
+      charEl.textContent = word[ci];
+      state.charMap.push({ type: 'char', wordIdx: wi, charIdx: ci, el: charEl, char: word[ci] });
       wordEl.appendChild(charEl);
     }
-
     frag.appendChild(wordEl);
-
     if (wi < words.length - 1) {
       const spaceEl = document.createElement('span');
       spaceEl.className = 'space-char';
@@ -1073,30 +1152,36 @@ function renderWords(words) {
 
   DOM.wordsDisplay.innerHTML = '';
   DOM.wordsDisplay.appendChild(frag);
-
-  state.lineHeight = parseFloat(getComputedStyle(DOM.wordsDisplay).lineHeight) || 40;
-
+  state.lineHeight = parseFloat(getComputedStyle(DOM.wordsDisplay).lineHeight) || 42;
   state.charPos = 0;
   updateCursor();
+
+  if (state.mode === 'words') {
+    DOM.wcTracker.style.display = 'block';
+    updateWcTracker();
+  } else {
+    DOM.wcTracker.style.display = 'none';
+  }
 }
 
-let _prevCursorEl = null;
-let _prevCursorBeforeEl = null;
+function updateWcTracker() {
+  if (state.mode !== 'words') return;
+  const wordsDone = state.charMap.filter((c,i) => i < state.charPos && c.type === 'space').length;
+  DOM.wcTracker.textContent = `${wordsDone} / ${state.wordCount} words`;
+}
+
+let _prevCursorEl = null, _prevCursorBeforeEl = null;
 
 function updateCursor() {
   if (_prevCursorEl)       { _prevCursorEl.classList.remove('cursor-on'); _prevCursorEl = null; }
   if (_prevCursorBeforeEl) { _prevCursorBeforeEl.classList.remove('cursor-before'); _prevCursorBeforeEl = null; }
-
   if (state.charPos < state.charMap.length) {
     const el = state.charMap[state.charPos].el;
     el.classList.add('cursor-on');
     _prevCursorEl = el;
   } else if (state.charPos > 0) {
     const prev = state.charMap[state.charPos - 1];
-    if (prev.type === 'char') {
-      prev.el.classList.add('cursor-before');
-      _prevCursorBeforeEl = prev.el;
-    }
+    if (prev.type === 'char') { prev.el.classList.add('cursor-before'); _prevCursorBeforeEl = prev.el; }
   }
 }
 
@@ -1104,29 +1189,21 @@ function scheduleScroll() {
   if (state.scrollRaf) return;
   state.scrollRaf = requestAnimationFrame(() => {
     state.scrollRaf = null;
-    performScroll();
+    if (state.charPos >= state.charMap.length) return;
+    const el = state.charMap[state.charPos].el;
+    const containerRect = DOM.wordsDisplay.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const relTop = elRect.top - containerRect.top;
+    if (relTop > state.lineHeight * 1.5) {
+      DOM.wordsDisplay.scrollTop += relTop - state.lineHeight * 0.5;
+    }
   });
 }
 
-function performScroll() {
-  if (state.charPos >= state.charMap.length) return;
-  const el = state.charMap[state.charPos].el;
-  const containerRect = DOM.wordsDisplay.getBoundingClientRect();
-  const elRect = el.getBoundingClientRect();
-  const lineH = state.lineHeight;
-  const relTop = elRect.top - containerRect.top;
-  if (relTop > lineH * 1.5) {
-    DOM.wordsDisplay.scrollTop += relTop - lineH * 0.5;
-  }
-}
-
-/* ── FIX: WPM uses only fully correct completed words ──
-   correctWordChars accumulates the length of each word (+ 1 for the space)
-   only when the space is pressed and the entire word had zero errors.
-   Raw WPM still counts all keystrokes (correct + incorrect) for comparison. */
 function calcWpm(secs) {
   const mins = secs / 60;
-  return mins > 0 ? Math.round((state.correctWordChars / 5) / mins) : 0;
+  const base = mins > 0 ? (state.correctWordChars / 5) / mins : 0;
+  return state.showDecimal ? Math.round(base * 10) / 10 : Math.round(base);
 }
 function calcRawWpm(secs) {
   const mins = secs / 60;
@@ -1161,12 +1238,10 @@ function updateProgress() {
 function startTimer() {
   state.startTime = Date.now();
   state.elapsed = 0;
-
   if (state.mode === 'time') {
     state.timeLeft = state.timeLimit;
     DOM.timerDisplay.textContent = state.timeLeft;
     DOM.timerLabel.textContent = 'seconds';
-
     state.timerInterval = setInterval(() => {
       state.elapsed = (Date.now() - state.startTime) / 1000;
       state.timeLeft = Math.max(0, state.timeLimit - Math.floor(state.elapsed));
@@ -1189,10 +1264,11 @@ function startTimer() {
     const acc = calcAcc();
     DOM.liveWpm.textContent = wpm;
     DOM.liveAcc.textContent = acc + '%';
-    state.wpmHistory.push(wpm);
+    state.wpmHistory.push(typeof wpm === 'number' ? wpm : parseFloat(wpm));
     state.accHistory.push(acc);
     state.rawHistory.push(calcRawWpm(secs));
     updateProgress();
+    updateWcTracker();
   }, 1000);
 }
 
@@ -1210,69 +1286,51 @@ DOM.hiddenInput.addEventListener('cut',   e => e.preventDefault());
 
 function handleKey(e) {
   if (state.finished) return;
-
-  if (!state.running && e.key !== 'Escape' && e.key !== 'Tab') {
-    beginTest();
-  }
+  if (!state.running && e.key !== 'Escape' && e.key !== 'Tab') beginTest();
   if (!state.running) return;
-
   if (e.key === 'Escape') { resetTest(); return; }
-  if (e.key === 'Tab')    { e.preventDefault(); return; }
-
+  if (e.key === 'Tab') { e.preventDefault(); return; }
   if (e.key === 'Backspace') {
     e.preventDefault();
-    if (state.backspaceRestricted) {
-      shakeContainer();
-    } else {
-      handleBackspace();
-    }
+    if (state.backspaceRestricted) shakeContainer();
+    else handleBackspace();
     return;
   }
-
   if (e.key === ' ') e.preventDefault();
   if (e.key.length !== 1) return;
-
-  if (state.charPos >= state.charMap.length) {
-    finishTest();
-    return;
-  }
+  if (state.charPos >= state.charMap.length) { finishTest(); return; }
 
   const entry = state.charMap[state.charPos];
   const correct = e.key === entry.char;
-
   state.totalKeystrokes++;
 
-  if (correct) {
-    entry.el.classList.add('correct');
-    state.correctChars++;
+  // Keystroke timing
+  const now = Date.now();
+  if (state.lastKeystrokeTime) state.keystrokeTimings.push(now - state.lastKeystrokeTime);
+  state.lastKeystrokeTime = now;
 
-    // ── FIX: When a space is typed correctly, check if the completed word
-    //    had zero errors. If so, credit its characters to correctWordChars.
+  if (correct) {
+    if (!state.blindMode) entry.el.classList.add('correct');
+    else entry.el.classList.add('correct');
+    state.correctChars++;
+    if (entry.type === 'char') state.keyCorrectMap[e.key] = (state.keyCorrectMap[e.key] || 0) + 1;
     if (entry.type === 'space') {
       const wordIdx = entry.wordIdx;
-      if (state.wordErrors[wordIdx] === 0) {
-        // word length + 1 for the space itself
-        state.correctWordChars += state.words[wordIdx].length + 1;
-      }
+      if (state.wordErrors[wordIdx] === 0) state.correctWordChars += state.words[wordIdx].length + 1;
     }
-
     if (state.sound) playSound(true);
   } else {
-    entry.el.classList.add('incorrect');
+    if (!state.blindMode) entry.el.classList.add('incorrect');
     state.incorrectChars++;
-
-    // Track that this word has an error
     if (entry.type === 'char') {
       state.wordErrors[entry.wordIdx]++;
-    } else if (entry.type === 'space') {
-      // Wrong key pressed instead of space — mark the word as errored
+      state.keyMistakeMap[entry.char] = (state.keyMistakeMap[entry.char] || 0) + 1;
+    } else {
       state.wordErrors[entry.wordIdx]++;
     }
-
     const exp = entry.char === ' ' ? '␣' : entry.char;
     const got = e.key    === ' ' ? '␣' : e.key;
-    const pair = `${exp}→${got}`;
-    state.mistakeMap[pair] = (state.mistakeMap[pair] || 0) + 1;
+    state.mistakeMap[`${exp}→${got}`] = (state.mistakeMap[`${exp}→${got}`] || 0) + 1;
     if (state.sound) playSound(false);
     if (state.animations) shakeContainer();
   }
@@ -1282,13 +1340,10 @@ function handleKey(e) {
   scheduleScroll();
   updateProgress();
 
-  // For the last word (no trailing space), credit it on completion if errorless
   if (state.charPos >= state.charMap.length) {
     const lastWordIdx = state.words.length - 1;
-    if (state.wordErrors[lastWordIdx] === 0) {
-      state.correctWordChars += state.words[lastWordIdx].length;
-    }
-    if (state.mode !== 'time') finishTest();
+    if (state.wordErrors[lastWordIdx] === 0) state.correctWordChars += state.words[lastWordIdx].length;
+    if (state.mode !== 'time' && state.mode !== 'zen') finishTest();
   }
 }
 
@@ -1296,22 +1351,13 @@ function handleBackspace() {
   if (state.charPos === 0) return;
   state.charPos--;
   const entry = state.charMap[state.charPos];
-  const { el } = entry;
-
-  if (el.classList.contains('correct'))        state.correctChars--;
-  else if (el.classList.contains('incorrect')) state.incorrectChars--;
-
-  // ── FIX: If backspacing over a correctly typed space, we may have already
-  //    credited that word's chars — remove that credit so the user must
-  //    retype the space to earn it again.
-  if (entry.type === 'space' && el.classList.contains('correct')) {
+  if (entry.el.classList.contains('correct')) state.correctChars--;
+  else if (entry.el.classList.contains('incorrect')) state.incorrectChars--;
+  if (entry.type === 'space' && entry.el.classList.contains('correct')) {
     const wordIdx = entry.wordIdx;
-    if (state.wordErrors[wordIdx] === 0) {
-      state.correctWordChars -= state.words[wordIdx].length + 1;
-    }
+    if (state.wordErrors[wordIdx] === 0) state.correctWordChars -= state.words[wordIdx].length + 1;
   }
-
-  el.classList.remove('correct', 'incorrect', 'extra');
+  entry.el.classList.remove('correct', 'incorrect', 'extra');
   updateCursor();
 }
 
@@ -1345,18 +1391,17 @@ function initTest(retry = false) {
   stopTimer();
   cancelAnimationFrame(state.scrollRaf);
   state.scrollRaf = null;
-
-  _prevCursorEl = null;
-  _prevCursorBeforeEl = null;
+  _prevCursorEl = null; _prevCursorBeforeEl = null;
 
   Object.assign(state, {
     charPos: 0, startTime: null,
     running: false, finished: false,
-    correctWordChars: 0,  // FIX: reset correctly
+    correctWordChars: 0,
     correctChars: 0, incorrectChars: 0, totalKeystrokes: 0,
     elapsed: 0, timeLeft: state.timeLimit,
-    mistakeMap: {}, wpmHistory: [], accHistory: [], rawHistory: [],
-    wordErrors: [],
+    mistakeMap: {}, keyMistakeMap: {}, keyCorrectMap: {},
+    wpmHistory: [], accHistory: [], rawHistory: [],
+    wordErrors: [], keystrokeTimings: [], lastKeystrokeTime: null,
   });
 
   DOM.liveWpm.textContent = '–';
@@ -1368,27 +1413,23 @@ function initTest(retry = false) {
   DOM.wordsDisplay.scrollTop = 0;
 
   showTypingView();
-
   const words = (retry && state.lastWords.length) ? state.lastWords : generateWords();
   state.lastWords = [...words];
   renderWords(words);
-
   DOM.hiddenInput.value = '';
   DOM.hiddenInput.focus();
+  DOM.startBtn.textContent = 'start';
+  DOM.startBtn.disabled = false;
 }
 
 function beginTest() {
   state.running = true;
-  DOM.startBtn.textContent = '◼ Running…';
+  DOM.startBtn.textContent = '…';
   DOM.startBtn.disabled = true;
   startTimer();
 }
 
-function resetTest() {
-  initTest(false);
-  DOM.startBtn.textContent = '▶ Start';
-  DOM.startBtn.disabled = false;
-}
+function resetTest() { initTest(false); }
 
 function finishTest() {
   if (state.finished) return;
@@ -1402,26 +1443,50 @@ function finishTest() {
   const raw  = calcRawWpm(secs);
   const acc  = calcAcc();
 
-  DOM.resWpm.innerHTML         = `${wpm} <span class="big-unit">wpm</span>`;
-  DOM.resAcc.textContent       = acc + '%';
-  DOM.resAcc.className         = 'result-card-val ' + (acc >= 90 ? 'good' : acc >= 70 ? '' : 'bad');
-  DOM.resRaw.textContent       = raw;
-  DOM.resErrors.textContent    = state.incorrectChars;
-  DOM.resChars.textContent     = `${state.correctChars}/${state.incorrectChars}`;
-  DOM.resTime.textContent      = secs.toFixed(1) + 's';
-  DOM.resConsistency.textContent = calcConsistency() + '%';
+  // PB check
+  const pbKey = getPbKey();
+  const prevPb = state.personalBests[pbKey] || 0;
+  const wpmNum = typeof wpm === 'number' ? wpm : parseFloat(wpm);
+  const isNewPb = wpmNum > prevPb;
+  if (isNewPb) {
+    state.personalBests[pbKey] = wpmNum;
+    DOM.pbBadge.classList.add('show');
+  } else {
+    DOM.pbBadge.classList.remove('show');
+  }
 
+  // Streak / level
+  state.totalTests++;
+  if (acc >= 90) { state.streak++; } else { state.streak = 0; }
+  state.level = Math.floor(state.totalTests / 5) + 1;
+  updateHeaderBadges();
+
+  // Scores history
+  state.scores.push(wpmNum);
+  savePersistence();
+  renderRecentScores();
+
+  // Fill results
+  DOM.resWpm.innerHTML = `${wpm} <span class="big-unit">wpm</span>`;
+  DOM.resAcc.textContent = acc + '%';
+  DOM.resAcc.className = 'result-card-val ' + (acc >= 90 ? 'good' : acc >= 70 ? '' : 'bad');
+  DOM.resRaw.textContent = raw;
+  DOM.resErrors.textContent = state.incorrectChars;
+  DOM.resChars.textContent = `${state.correctChars}/${state.incorrectChars}`;
+  DOM.resTime.textContent = secs.toFixed(1) + 's';
+  DOM.resConsistency.textContent = calcConsistency() + '%';
+  DOM.resAccInline.textContent = acc + '%';
+  DOM.resRawInline.textContent = raw + ' wpm';
+  DOM.resTimeInline.textContent = secs.toFixed(1) + 's';
+
+  // Mistakes
   const chipFrag = document.createDocumentFragment();
   const mistakes = Object.entries(state.mistakeMap).sort((a, b) => b[1] - a[1]);
   if (mistakes.length === 0) {
-    const s = document.createElement('span');
-    s.className = 'no-mistakes';
-    s.textContent = '✓ No mistakes recorded';
-    chipFrag.appendChild(s);
+    const s = document.createElement('span'); s.className = 'no-mistakes'; s.textContent = '✓ no mistakes'; chipFrag.appendChild(s);
   } else {
     mistakes.slice(0, 20).forEach(([pair, cnt]) => {
-      const chip = document.createElement('div');
-      chip.className = 'mistake-chip';
+      const chip = document.createElement('div'); chip.className = 'mistake-chip';
       chip.innerHTML = `<code>${pair}</code><span class="mistake-count">${cnt}</span>`;
       chipFrag.appendChild(chip);
     });
@@ -1430,22 +1495,66 @@ function finishTest() {
   DOM.mistakeChips.appendChild(chipFrag);
 
   renderChart();
+  if (state.showHeatmap) renderHeatmap();
   showResultsView();
 }
 
-let perfChart = null;
+function renderRecentScores() {
+  const scores = state.scores.slice(-7);
+  const maxScore = Math.max(...scores, 1);
+  DOM.recentScores.innerHTML = '';
+  scores.forEach((s, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'score-bar-wrap';
+    const bar = document.createElement('div');
+    bar.className = 'score-bar' + (i === scores.length - 1 ? ' latest' : '');
+    bar.style.height = Math.max(4, Math.round((s / maxScore) * 36)) + 'px';
+    const val = document.createElement('div');
+    val.className = 'score-bar-val';
+    val.textContent = s;
+    wrap.appendChild(bar);
+    wrap.appendChild(val);
+    DOM.recentScores.appendChild(wrap);
+  });
+}
 
+function renderHeatmap() {
+  DOM.keyboardHeatmap.innerHTML = '';
+  const allCorrect = Object.values(state.keyCorrectMap).reduce((a,b) => a+b, 0) || 1;
+  KB_ROWS.forEach(row => {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'kb-row';
+    row.forEach(k => {
+      const keyEl = document.createElement('div');
+      keyEl.className = 'kb-key';
+      keyEl.textContent = k;
+      const correct = state.keyCorrectMap[k] || 0;
+      const errors = state.keyMistakeMap[k] || 0;
+      if (errors > 2) { keyEl.classList.add('heat-err'); }
+      else if (correct > 0) {
+        const pct = correct / allCorrect;
+        if (pct > 0.08) keyEl.classList.add('heat-4');
+        else if (pct > 0.05) keyEl.classList.add('heat-3');
+        else if (pct > 0.02) keyEl.classList.add('heat-2');
+        else keyEl.classList.add('heat-1');
+      }
+      rowEl.appendChild(keyEl);
+    });
+    DOM.keyboardHeatmap.appendChild(rowEl);
+  });
+  DOM.heatmapSection.style.display = 'block';
+}
+
+let perfChart = null;
 function renderChart() {
   if (perfChart) { perfChart.destroy(); perfChart = null; }
-
   const cs = getComputedStyle(document.documentElement);
-  const accent  = cs.getPropertyValue('--accent').trim()  || '#f5a623';
-  const correct = cs.getPropertyValue('--correct').trim() || '#4ec994';
-  const muted   = cs.getPropertyValue('--muted').trim()   || '#5a5a66';
-  const textCol = cs.getPropertyValue('--text').trim()    || '#e8e6e1';
-
+  const accent  = cs.getPropertyValue('--accent').trim()  || '#e2b714';
+  const correct = cs.getPropertyValue('--correct').trim() || '#d1d0c5';
+  const muted   = cs.getPropertyValue('--muted').trim()   || '#646669';
+  const surface = cs.getPropertyValue('--surface').trim() || '#2c2e31';
   const labels = state.wpmHistory.map((_, i) => `${i + 1}s`);
-  const monoFont = { family: 'JetBrains Mono', size: 11 };
+  const monoFont = { family: 'Roboto Mono', size: 10 };
 
   perfChart = new Chart(document.getElementById('perf-chart').getContext('2d'), {
     type: 'line',
@@ -1453,101 +1562,79 @@ function renderChart() {
       labels,
       datasets: [
         {
-          label: 'WPM', data: state.wpmHistory,
-          borderColor: accent, backgroundColor: accent + '22',
-          borderWidth: 2, tension: 0.4, fill: true,
-          pointRadius: 3, pointHoverRadius: 5, yAxisID: 'y'
+          label: 'wpm', data: state.wpmHistory,
+          borderColor: accent, backgroundColor: accent + '18',
+          borderWidth: 2, tension: 0.35, fill: true,
+          pointRadius: 2, pointHoverRadius: 4, yAxisID: 'y'
         },
         {
-          label: 'Accuracy %', data: state.accHistory,
-          borderColor: correct, backgroundColor: correct + '11',
-          borderWidth: 2, tension: 0.4, fill: false,
-          pointRadius: 3, pointHoverRadius: 5, yAxisID: 'y1',
-          borderDash: [4, 4]
+          label: 'acc %', data: state.accHistory,
+          borderColor: correct, backgroundColor: 'transparent',
+          borderWidth: 1.5, tension: 0.35, fill: false,
+          pointRadius: 2, pointHoverRadius: 4, yAxisID: 'y1',
+          borderDash: [3, 3]
         }
       ]
     },
     options: {
       responsive: true,
-      animation: { duration: 400 },
+      animation: { duration: 300 },
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { labels: { color: muted, font: monoFont, boxWidth: 16 } },
+        legend: { labels: { color: muted, font: monoFont, boxWidth: 14 } },
         tooltip: {
-          backgroundColor: 'rgba(0,0,0,0.85)',
-          titleColor: textCol, bodyColor: muted,
-          titleFont: { family: 'JetBrains Mono', size: 12 },
-          bodyFont: monoFont
+          backgroundColor: surface,
+          titleColor: '#fff', bodyColor: muted,
+          titleFont: { family: 'Roboto Mono', size: 11 },
+          bodyFont: monoFont, borderColor: muted, borderWidth: 0.5
         }
       },
       scales: {
-        x: {
-          grid: { color: 'rgba(255,255,255,0.04)' },
-          ticks: { color: muted, font: monoFont, maxTicksLimit: 12 }
-        },
-        y: {
-          grid: { color: 'rgba(255,255,255,0.04)' },
-          ticks: { color: muted, font: monoFont },
-          title: { display: true, text: 'WPM', color: accent, font: monoFont }
-        },
-        y1: {
-          position: 'right', min: 0, max: 100,
-          grid: { drawOnChartArea: false },
-          ticks: { color: muted, font: monoFont },
-          title: { display: true, text: 'ACC %', color: correct, font: monoFont }
-        }
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: muted, font: monoFont, maxTicksLimit: 10 } },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: muted, font: monoFont }, title: { display: true, text: 'wpm', color: accent, font: monoFont } },
+        y1: { position: 'right', min: 0, max: 100, grid: { drawOnChartArea: false }, ticks: { color: muted, font: monoFont }, title: { display: true, text: 'acc', color: correct, font: monoFont } }
       }
     }
   });
 }
 
+// ── SOUND ──
 function getAudioCtx() {
-  if (!state.audioCtx) {
-    state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
+  if (!state.audioCtx) state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return state.audioCtx;
 }
-
 function playSound(isCorrect) {
   try {
-    const ctx  = getAudioCtx();
-    const osc  = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+    const ctx = getAudioCtx(), osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
     if (isCorrect) {
-      osc.frequency.setValueAtTime(600 + Math.random() * 200, ctx.currentTime);
+      osc.frequency.setValueAtTime(500 + Math.random() * 150, ctx.currentTime);
       osc.type = 'sine';
-      gain.gain.setValueAtTime(0.08, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
-      osc.start(); osc.stop(ctx.currentTime + 0.05);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+      osc.start(); osc.stop(ctx.currentTime + 0.04);
     } else {
-      osc.frequency.setValueAtTime(200, ctx.currentTime);
+      osc.frequency.setValueAtTime(180, ctx.currentTime);
       osc.type = 'square';
-      gain.gain.setValueAtTime(0.05, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-      osc.start(); osc.stop(ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.04, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+      osc.start(); osc.stop(ctx.currentTime + 0.06);
     }
-  } catch (_) {}
+  } catch(_) {}
 }
 
+// ── TOAST ──
 let toastTimer = null;
 function showToast(msg) {
   DOM.toast.textContent = msg;
   DOM.toast.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => DOM.toast.classList.remove('show'), 2800);
+  toastTimer = setTimeout(() => DOM.toast.classList.remove('show'), 2500);
 }
 
-function openSettings() {
-  DOM.settingsPanel.classList.add('open');
-  DOM.settingsBackdrop.classList.add('open');
-}
-function closeSettings() {
-  DOM.settingsPanel.classList.remove('open');
-  DOM.settingsBackdrop.classList.remove('open');
-}
-
+// ── SETTINGS ──
+function openSettings() { DOM.settingsPanel.classList.add('open'); DOM.settingsBackdrop.classList.add('open'); }
+function closeSettings() { DOM.settingsPanel.classList.remove('open'); DOM.settingsBackdrop.classList.remove('open'); }
 document.getElementById('settings-btn').addEventListener('click', openSettings);
 document.getElementById('settings-close').addEventListener('click', closeSettings);
 DOM.settingsBackdrop.addEventListener('click', closeSettings);
@@ -1566,8 +1653,9 @@ document.querySelectorAll('[data-font]').forEach(btn => {
     document.querySelectorAll('[data-font]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const val = btn.dataset.font;
-    document.body.removeAttribute('data-font');
-    if (val !== 'jetbrains') document.body.dataset.font = val;
+    if (val === 'roboto') { document.body.style.setProperty('--font-mono', "'Roboto Mono', monospace"); }
+    else if (val === 'ibm') { document.body.style.setProperty('--font-mono', "'IBM Plex Mono', monospace"); }
+    else if (val === 'courier') { document.body.style.setProperty('--font-mono', "'Courier New', monospace"); }
   });
 });
 
@@ -1593,39 +1681,28 @@ document.querySelectorAll('[data-lang]').forEach(btn => {
     document.querySelectorAll('[data-lang]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     state.lang = btn.dataset.lang;
-    DOM.langBadge.textContent = btn.dataset.lang.toUpperCase();
+    DOM.langBadge.textContent = btn.dataset.lang;
     if (state.mode === 'time' || state.mode === 'words') initTest();
-    showToast(`Language set to ${btn.textContent}`);
+    showToast(`language: ${btn.textContent.replace(/[^a-z ]/gi,'').trim()}`);
   });
 });
 
-document.querySelectorAll('[data-layout]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-layout]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    showToast(`Layout set to ${btn.dataset.layout.toUpperCase()} (visual reference only)`);
-  });
-});
-
-DOM.soundToggle.addEventListener('change', e => {
-  state.sound = e.target.checked;
-  DOM.soundBtn.textContent = (state.sound ? '🔊' : '🔇') + ' Sound';
-});
+DOM.soundToggle.addEventListener('change', e => { state.sound = e.target.checked; });
 DOM.backspaceToggle.addEventListener('change', e => { state.backspaceRestricted = e.target.checked; });
 DOM.animToggle.addEventListener('change', e => { state.animations = e.target.checked; });
-DOM.dyslexiaToggle.addEventListener('change', e => {
-  if (e.target.checked) {
-    document.body.dataset.font = 'dyslexic';
-    showToast('OpenDyslexic font requires web access to load');
-  } else {
-    delete document.body.dataset.font;
-  }
-});
+document.getElementById('blind-toggle').addEventListener('change', e => { state.blindMode = e.target.checked; });
+document.getElementById('smooth-caret-toggle').addEventListener('change', e => { state.smoothCaret = e.target.checked; });
+document.getElementById('decimal-toggle').addEventListener('change', e => { state.showDecimal = e.target.checked; });
+document.getElementById('heatmap-toggle').addEventListener('change', e => { state.showHeatmap = e.target.checked; });
+document.getElementById('ghost-toggle').addEventListener('change', e => { state.ghostMode = e.target.checked; });
 
 DOM.soundBtn.addEventListener('click', () => {
   state.sound = !state.sound;
-  DOM.soundBtn.textContent = (state.sound ? '🔊' : '🔇') + ' Sound';
   DOM.soundToggle.checked = state.sound;
+  const icon = document.getElementById('sound-icon');
+  icon.innerHTML = state.sound
+    ? '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>'
+    : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>';
 });
 
 function activatePill(group, activeBtn) {
@@ -1634,21 +1711,18 @@ function activatePill(group, activeBtn) {
   activeBtn.setAttribute('aria-pressed', 'true');
 }
 
+// MODE switching
 document.querySelectorAll('[data-mode-type]').forEach(btn => {
   btn.addEventListener('click', () => {
     activatePill(document.querySelectorAll('[data-mode-type]'), btn);
     state.mode = btn.dataset.modeType;
-
-    DOM.timeOpts.style.display   = state.mode === 'time'   ? '' : 'none';
-    DOM.wordsOpts.style.display  = state.mode === 'words'  ? '' : 'none';
-    DOM.quoteOpts.style.display  = state.mode === 'quote'  ? '' : 'none';
+    DOM.timeOpts.style.display   = state.mode === 'time'   ? 'flex' : 'none';
+    DOM.wordsOpts.style.display  = state.mode === 'words'  ? 'flex' : 'none';
+    DOM.quoteOpts.style.display  = state.mode === 'quote'  ? 'flex' : 'none';
+    DOM.zenOpts.style.display    = state.mode === 'zen'    ? 'flex' : 'none';
     DOM.customOpts.style.display = state.mode === 'custom' ? '' : 'none';
     DOM.customInputWrap.style.display = state.mode === 'custom' ? '' : 'none';
-
-    const labels = { time: 'time', words: 'words', quote: 'length', custom: '' };
-    DOM.subLabel.textContent = labels[state.mode] || '';
-
-    initTest();
+    if (state.mode !== 'custom') initTest();
   });
 });
 
@@ -1659,7 +1733,6 @@ document.querySelectorAll('[data-time]').forEach(btn => {
     initTest();
   });
 });
-
 document.querySelectorAll('[data-words]').forEach(btn => {
   btn.addEventListener('click', () => {
     activatePill(document.querySelectorAll('[data-words]'), btn);
@@ -1667,7 +1740,6 @@ document.querySelectorAll('[data-words]').forEach(btn => {
     initTest();
   });
 });
-
 document.querySelectorAll('[data-quote-len]').forEach(btn => {
   btn.addEventListener('click', () => {
     activatePill(document.querySelectorAll('[data-quote-len]'), btn);
@@ -1678,56 +1750,137 @@ document.querySelectorAll('[data-quote-len]').forEach(btn => {
 
 document.getElementById('custom-apply-btn').addEventListener('click', () => {
   state.customText = DOM.customTextInput.value;
-  if (!state.customText.trim()) { showToast('Please enter some text!'); return; }
+  if (!state.customText.trim()) { showToast('please enter some text!'); return; }
   initTest();
-  showToast('Custom text applied!');
+  showToast('custom text applied');
 });
 
-DOM.startBtn.addEventListener('click', () => {
-  if (!state.running) { DOM.hiddenInput.focus(); beginTest(); }
-});
+DOM.startBtn.addEventListener('click', () => { if (!state.running) { DOM.hiddenInput.focus(); beginTest(); } });
 DOM.resetBtn.addEventListener('click', resetTest);
 
-document.getElementById('retry-btn').addEventListener('click', () => {
-  initTest(true);
-  DOM.startBtn.textContent = '▶ Start';
-  DOM.startBtn.disabled = false;
-});
-document.getElementById('new-test-btn').addEventListener('click', () => {
-  initTest(false);
-  DOM.startBtn.textContent = '▶ Start';
-  DOM.startBtn.disabled = false;
-});
+document.getElementById('retry-btn').addEventListener('click', () => initTest(true));
+document.getElementById('new-test-btn').addEventListener('click', () => initTest(false));
 
 document.getElementById('share-btn').addEventListener('click', () => {
-  const wpm  = DOM.resWpm.textContent.replace(' wpm', '').trim();
-  const acc  = DOM.resAcc.textContent;
-  const text = `I just typed ${wpm} WPM with ${acc} accuracy on TypeForge! 🎯⌨️`;
-  if (navigator.share) {
-    navigator.share({ title: 'TypeForge Result', text }).catch(() => {});
-  } else if (navigator.clipboard) {
-    navigator.clipboard.writeText(text);
-    showToast('Result copied to clipboard!');
-  } else {
-    showToast(text);
-  }
+  const wpm = DOM.resWpm.textContent.replace('wpm','').trim();
+  const acc = DOM.resAcc.textContent;
+  const text = `I typed ${wpm} WPM with ${acc} accuracy on TypeForge! ⌨️`;
+  if (navigator.clipboard) { navigator.clipboard.writeText(text); showToast('copied to clipboard!'); }
+  else showToast(text);
 });
 
 DOM.typingContainer.addEventListener('click', () => DOM.hiddenInput.focus());
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Tab') {
-    e.preventDefault();
-    DOM.hiddenInput.focus();
-  }
-  if (e.key === 'Escape' && !state.running) resetTest();
-  if (e.key === 'Enter' && state.finished) {
-    initTest(false);
-    DOM.startBtn.textContent = '▶ Start';
-    DOM.startBtn.disabled = false;
-  }
+// ── COMMAND PALETTE ──
+const COMMANDS = [
+  { icon: '⏱', label: 'time 15', action: () => setTime(15) },
+  { icon: '⏱', label: 'time 30', action: () => setTime(30) },
+  { icon: '⏱', label: 'time 60', action: () => setTime(60) },
+  { icon: '⏱', label: 'time 120', action: () => setTime(120) },
+  { icon: '📝', label: 'words 10', action: () => setWords(10) },
+  { icon: '📝', label: 'words 25', action: () => setWords(25) },
+  { icon: '📝', label: 'words 50', action: () => setWords(50) },
+  { icon: '📝', label: 'words 100', action: () => setWords(100) },
+  { icon: '🌍', label: 'language english', action: () => setLang('en') },
+  { icon: '🌍', label: 'language nepali', action: () => setLang('ne') },
+  { icon: '🌍', label: 'language hindi', action: () => setLang('hi') },
+  { icon: '🌍', label: 'language spanish', action: () => setLang('es') },
+  { icon: '🌍', label: 'language french', action: () => setLang('fr') },
+  { icon: '🌍', label: 'language german', action: () => setLang('de') },
+  { icon: '🎨', label: 'theme dark (serika)', action: () => setTheme('') },
+  { icon: '🎨', label: 'theme light', action: () => setTheme('light') },
+  { icon: '🎨', label: 'theme ocean (tokyo night)', action: () => setTheme('ocean') },
+  { icon: '🎨', label: 'theme rose pine', action: () => setTheme('rose') },
+  { icon: '🔊', label: 'toggle sound', action: () => { state.sound = !state.sound; DOM.soundToggle.checked = state.sound; showToast(`sound ${state.sound ? 'on' : 'off'}`); } },
+  { icon: '⚡', label: 'focus mode', action: () => { document.body.classList.toggle('focus-mode'); showToast('focus mode ' + (document.body.classList.contains('focus-mode') ? 'on' : 'off')); } },
+  { icon: '↺', label: 'reset test', action: () => resetTest() },
+  { icon: '📊', label: 'show personal best', action: () => { const pb = state.personalBests[getPbKey()]; showToast(pb ? `pb: ${pb} wpm` : 'no pb yet'); } },
+];
+
+function setTime(t) {
+  state.mode = 'time'; state.timeLimit = t;
+  document.querySelector('[data-mode-type="time"]').click();
+  const btn = document.querySelector(`[data-time="${t}"]`);
+  if (btn) { activatePill(document.querySelectorAll('[data-time]'), btn); }
+  initTest();
+}
+function setWords(w) {
+  state.mode = 'words'; state.wordCount = w;
+  document.querySelector('[data-mode-type="words"]').click();
+  const btn = document.querySelector(`[data-words="${w}"]`);
+  if (btn) { activatePill(document.querySelectorAll('[data-words]'), btn); }
+  initTest();
+}
+function setLang(l) {
+  state.lang = l;
+  DOM.langBadge.textContent = l;
+  const btn = document.querySelector(`[data-lang="${l}"]`);
+  if (btn) { document.querySelectorAll('[data-lang]').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+  if (state.mode === 'time' || state.mode === 'words') initTest();
+  showToast(`language: ${l}`);
+}
+function setTheme(t) {
+  document.documentElement.dataset.theme = t;
+  document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('active', s.dataset.theme === t));
+}
+
+const cmdPalette = document.getElementById('cmd-palette');
+const cmdInput   = document.getElementById('cmd-input');
+const cmdList    = document.getElementById('cmd-list');
+const cmdBackdrop = document.getElementById('cmd-backdrop');
+let cmdSelectedIdx = -1;
+
+function openCmd() {
+  cmdPalette.classList.add('open');
+  cmdBackdrop.classList.add('open');
+  cmdInput.value = '';
+  renderCmdList('');
+  setTimeout(() => cmdInput.focus(), 50);
+}
+function closeCmd() {
+  cmdPalette.classList.remove('open');
+  cmdBackdrop.classList.remove('open');
+  cmdSelectedIdx = -1;
+}
+
+function renderCmdList(q) {
+  const filtered = q ? COMMANDS.filter(c => c.label.toLowerCase().includes(q.toLowerCase())) : COMMANDS;
+  cmdList.innerHTML = '';
+  filtered.forEach((cmd, i) => {
+    const item = document.createElement('div');
+    item.className = 'cmd-item' + (i === cmdSelectedIdx ? ' selected' : '');
+    item.innerHTML = `<span class="cmd-icon">${cmd.icon}</span>${cmd.label}`;
+    item.addEventListener('click', () => { cmd.action(); closeCmd(); });
+    cmdList.appendChild(item);
+  });
+}
+
+cmdInput.addEventListener('input', () => { cmdSelectedIdx = -1; renderCmdList(cmdInput.value); });
+cmdInput.addEventListener('keydown', e => {
+  const items = cmdList.querySelectorAll('.cmd-item');
+  if (e.key === 'ArrowDown') { e.preventDefault(); cmdSelectedIdx = Math.min(cmdSelectedIdx + 1, items.length - 1); renderCmdList(cmdInput.value); }
+  if (e.key === 'ArrowUp')   { e.preventDefault(); cmdSelectedIdx = Math.max(cmdSelectedIdx - 1, 0); renderCmdList(cmdInput.value); }
+  if (e.key === 'Enter' && cmdSelectedIdx >= 0) { const filtered = cmdInput.value ? COMMANDS.filter(c => c.label.toLowerCase().includes(cmdInput.value.toLowerCase())) : COMMANDS; if (filtered[cmdSelectedIdx]) { filtered[cmdSelectedIdx].action(); closeCmd(); } }
+  if (e.key === 'Escape') closeCmd();
+});
+cmdBackdrop.addEventListener('click', closeCmd);
+document.getElementById('cmd-btn').addEventListener('click', openCmd);
+
+// Focus mode
+document.getElementById('focus-btn').addEventListener('click', () => {
+  document.body.classList.toggle('focus-mode');
+  showToast('focus mode ' + (document.body.classList.contains('focus-mode') ? 'on (hover to reveal ui)' : 'off'));
 });
 
+// Global keydown
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openCmd(); return; }
+  if (e.key === 'Tab') { e.preventDefault(); DOM.hiddenInput.focus(); }
+  if (e.key === 'Escape' && !state.running && !cmdPalette.classList.contains('open')) resetTest();
+  if (e.key === 'Enter' && state.finished) initTest(false);
+});
+
+loadPersistence();
 initTest();
 DOM.hiddenInput.focus();
 </script>
