@@ -9,10 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    /* ═══════════════════════════════════════════
-       CUSTOM PROPERTIES — Single source of truth
-       GPU-friendly: only transform/opacity animate
-    ═══════════════════════════════════════════ */
     :root {
       --bg: #0e0e0f;
       --surface: #161618;
@@ -28,14 +24,11 @@
       --font-mono: 'JetBrains Mono', monospace;
       --font-display: 'Syne', sans-serif;
       --radius: 6px;
-      /* Typing font size driven by a single var; no class swapping needed */
       --typing-size: 22px;
-      /* GPU layer hint for animated elements */
       --transition-fast: 0.12s ease;
       --transition-med: 0.22s ease;
     }
 
-    /* ── THEMES (body data-theme attribute for clean switching) ── */
     [data-theme="light"] {
       --bg: #f5f3ef; --surface: #ebe8e2; --surface2: #dedad2;
       --border: #ccc8bf; --text: #1a1a1c; --muted: #8a8880;
@@ -55,12 +48,10 @@
       --correct: #4ade80; --incorrect: #fb7185; --cursor-color: #f472b6;
     }
 
-    /* ── FONT OVERRIDES (data-font on body) ── */
     [data-font="ibm"]     { --font-mono: 'IBM Plex Mono', monospace; }
     [data-font="courier"] { --font-mono: 'Courier New', monospace; }
     [data-font="dyslexic"]{ --font-mono: 'OpenDyslexicMono', monospace; }
 
-    /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
@@ -71,16 +62,12 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      /* GPU layer for bg transitions */
       transition: background var(--transition-med), color var(--transition-med);
       will-change: background;
     }
 
-    /* ═══════════════════════════════════════════
-       MOBILE BLOCKER — No layout paint on desktop
-    ═══════════════════════════════════════════ */
     #mobile-wall {
-      display: none; /* hidden by default; JS adds .show only on mobile */
+      display: none;
       position: fixed; inset: 0; z-index: 9999;
       background: #0e0e0f;
       align-items: center; justify-content: center;
@@ -99,7 +86,6 @@
       width: 340px; height: 340px; border-radius: 50%;
       background: radial-gradient(circle, rgba(245,166,35,.07) 0%, transparent 70%);
       top: 50%; left: 50%;
-      /* transform instead of top/left for GPU compositing */
       transform: translate(-50%, -60%);
       pointer-events: none;
     }
@@ -180,7 +166,6 @@
     .mw-corner-br { bottom: 24px; right: 24px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
     @media (min-width:769px) { #mobile-wall { display: none !important; } }
 
-    /* ── HEADER ── */
     header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 32px;
@@ -204,20 +189,17 @@
       background: none; border: 1px solid var(--border); color: var(--muted);
       padding: 7px 10px; border-radius: var(--radius);
       cursor: pointer; font-size: .8rem; font-family: var(--font-mono);
-      /* Use transform for hover lift — no layout thrash */
       transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
       display: flex; align-items: center; gap: 6px;
     }
     .icon-btn:hover { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
     .icon-btn.active { color: var(--accent); border-color: var(--accent); }
 
-    /* ── MAIN ── */
     main {
       flex: 1; display: flex; flex-direction: column; align-items: center;
       padding: 40px 24px; max-width: 1000px; margin: 0 auto; width: 100%;
     }
 
-    /* ── TOOLBAR ── */
     .toolbar {
       display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
       margin-bottom: 40px;
@@ -231,7 +213,6 @@
       padding: 5px 14px; border-radius: 20px;
       cursor: pointer; font-family: var(--font-mono);
       font-size: .78rem; font-weight: 500;
-      /* Only color/bg transition — no layout props */
       transition: color var(--transition-fast), background var(--transition-fast);
       white-space: nowrap;
     }
@@ -242,7 +223,6 @@
       padding: 4px 10px; letter-spacing: .08em; text-transform: uppercase;
     }
 
-    /* ── LIVE STATS ── */
     .live-stats {
       display: flex; align-items: center; gap: 32px;
       margin-bottom: 28px; width: 100%; justify-content: center;
@@ -260,7 +240,6 @@
       font-family: var(--font-mono); font-size: 3.2rem; font-weight: 200;
       color: var(--text); line-height: 1; letter-spacing: -.05em;
     }
-    /* Urgent pulse via opacity only — GPU composited */
     .timer-value.urgent {
       color: var(--incorrect);
       animation: pulse-urgent .5s ease-in-out infinite alternate;
@@ -268,7 +247,6 @@
     }
     @keyframes pulse-urgent { from { opacity: 1; } to { opacity: .6; } }
 
-    /* ── PROGRESS BAR ── */
     .progress-wrap {
       width: 100%; height: 3px;
       background: var(--border); border-radius: 2px;
@@ -278,14 +256,12 @@
       height: 100%;
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       border-radius: 2px;
-      /* transform instead of width for GPU-composited animation */
       transform-origin: left;
       transform: scaleX(0);
       transition: transform var(--transition-fast) ease;
       will-change: transform;
     }
 
-    /* ── TYPING AREA ── */
     .typing-container {
       width: 100%; position: relative;
       background: var(--surface); border: 1px solid var(--border);
@@ -297,7 +273,6 @@
     .typing-container:focus-within {
       border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
     }
-    /* Shake via transform — no layout shift */
     .typing-container.shake {
       animation: shake .3s ease;
       will-change: transform;
@@ -311,7 +286,6 @@
     }
 
     #hidden-input {
-      /* Visually hidden but accessible for IME / mobile browsers */
       position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;
     }
 
@@ -323,12 +297,10 @@
       user-select: none;
       word-break: break-word;
       overflow: hidden;
-      /* Fixed 3-line viewport — scrolled via scrollTop, no layout repaint */
       max-height: calc(var(--typing-size) * 1.8 * 3 + 8px);
     }
 
     .word { display: inline-block; white-space: nowrap; position: relative; }
-    /* Word underline via pseudo element — cheaper than border */
     .word.wrong-word::after {
       content: '';
       position: absolute;
@@ -336,27 +308,22 @@
       background: var(--incorrect); border-radius: 1px; opacity: .6;
     }
 
-    /* Space character */
     .space-char { display: inline-block; position: relative; }
     .space-char.correct { color: var(--correct); }
     .space-char.incorrect { color: var(--incorrect); text-decoration: underline; }
 
-    /* ── CURSOR — block & line rendered with pseudos (no extra DOM nodes) ── */
     .char, .space-char {
       display: inline-block; position: relative;
-      /* Colour transitions via CSS — avoids JS style updates */
       transition: color .06s;
     }
     .char.correct   { color: var(--correct); }
     .char.incorrect { color: var(--incorrect); }
     .char.extra     { color: var(--incorrect); opacity: .7; font-style: italic; }
 
-    /* Cursor blink — GPU composited opacity animation */
     @keyframes blink {
       0%,100% { opacity: 1; } 50% { opacity: 0; }
     }
 
-    /* LINE cursor */
     .caret-line .char.cursor-on::before,
     .caret-line .space-char.cursor-on::before {
       content: ''; position: absolute;
@@ -366,13 +333,11 @@
       will-change: opacity;
     }
 
-    /* BLOCK cursor */
     .caret-block .char.cursor-on {
       background: var(--cursor-color); color: var(--bg) !important;
     }
     .caret-block .space-char.cursor-on { background: color-mix(in srgb, var(--cursor-color) 30%, transparent); }
 
-    /* Cursor-before fallback (at end of text) */
     .char.cursor-before::before {
       content: ''; position: absolute;
       left: calc(100% - 1px); top: 8%; height: 84%; width: 2px;
@@ -381,7 +346,6 @@
       will-change: opacity;
     }
 
-    /* ── BUTTONS ── */
     .control-bar {
       display: flex; justify-content: center; align-items: center;
       gap: 14px; margin-top: 28px;
@@ -401,7 +365,6 @@
     }
     .btn-primary:hover {
       background: var(--accent2); border-color: var(--accent2);
-      /* Use transform for lift — no layout change */
       transform: translateY(-1px);
       box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 30%, transparent);
     }
@@ -417,7 +380,6 @@
       font-size: .68rem; color: var(--muted);
     }
 
-    /* ── RESULTS ── */
     #results-screen { display: none; width: 100%; animation: fadeUp .4s ease; }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -490,13 +452,11 @@
     .no-mistakes { color: var(--correct); font-family: var(--font-mono); font-size: .88rem; }
     .results-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-    /* ── SETTINGS PANEL ── */
     #settings-panel {
-      display: none; /* toggled by .open class */
+      display: none;
       position: fixed; top: 0; right: 0; bottom: 0; width: 320px;
       background: var(--surface); border-left: 1px solid var(--border);
       z-index: 200; overflow-y: auto; padding: 28px 24px;
-      /* GPU slide via transform */
       transform: translateX(100%);
     }
     #settings-panel.open {
@@ -538,7 +498,6 @@
     .setting-pill:hover { color: var(--text); }
     .setting-pill.active { background: var(--accent); color: #0e0e0f; border-color: var(--accent); font-weight: 700; }
 
-    /* Toggle */
     .toggle { position: relative; display: inline-block; width: 40px; height: 22px; }
     .toggle input { opacity: 0; width: 0; height: 0; }
     .toggle-slider {
@@ -551,14 +510,12 @@
       position: absolute;
       height: 16px; width: 16px; left: 2px; bottom: 2px;
       background: var(--muted); border-radius: 50%;
-      /* GPU-composited slide */
       transition: transform var(--transition-fast), background var(--transition-fast);
       will-change: transform;
     }
     .toggle input:checked + .toggle-slider { background: color-mix(in srgb, var(--accent) 20%, transparent); border-color: var(--accent); }
     .toggle input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--accent); }
 
-    /* Theme swatches */
     .theme-swatches { display: flex; gap: 8px; }
     .swatch {
       width: 26px; height: 26px; border-radius: 50%; cursor: pointer;
@@ -582,7 +539,6 @@
     }
     .custom-text-area:focus { border-color: var(--accent); }
 
-    /* ── COUNTDOWN OVERLAY ── */
     #countdown-overlay {
       display: none; position: absolute; inset: 0;
       background: color-mix(in srgb, var(--bg) 85%, transparent);
@@ -608,7 +564,6 @@
       padding: 4px 10px; border: 1px solid var(--border); border-radius: 20px;
     }
 
-    /* ── FOOTER ── */
     footer {
       text-align: center; padding: 20px;
       border-top: 1px solid var(--border);
@@ -616,10 +571,8 @@
     }
     footer span { color: var(--accent); }
 
-    /* ── TOAST ── */
     #toast {
       position: fixed; bottom: 24px; left: 50%;
-      /* GPU transform for slide — no layout cost */
       transform: translateX(-50%) translateY(20px);
       background: var(--surface); border: 1px solid var(--accent);
       color: var(--text); padding: 10px 20px; border-radius: var(--radius);
@@ -631,7 +584,6 @@
     }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width:640px) {
       header { padding: 14px 16px; }
       main   { padding: 20px 16px; }
@@ -644,13 +596,11 @@
       .big-wpm { font-size: 4rem; }
     }
 
-    /* Custom scrollbar */
     ::-webkit-scrollbar       { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
-    /* Respect user motion preferences */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -660,7 +610,6 @@
 </head>
 <body>
 
-<!-- MOBILE WALL -->
 <div id="mobile-wall" role="alert" aria-live="assertive">
   <div class="mw-corner-tl"></div>
   <div class="mw-corner-br"></div>
@@ -690,7 +639,6 @@
   </div>
 </div>
 
-<!-- HEADER -->
 <header>
   <div class="logo">
     <div class="forge-icon" aria-hidden="true">⌨</div>
@@ -703,7 +651,6 @@
   </div>
 </header>
 
-<!-- SETTINGS PANEL -->
 <div class="settings-backdrop" id="settings-backdrop"></div>
 <aside id="settings-panel" role="dialog" aria-label="Settings" aria-modal="true">
   <div class="settings-title">
@@ -814,7 +761,6 @@
   </div>
 </aside>
 
-<!-- MAIN -->
 <main>
   <nav class="toolbar" role="toolbar" aria-label="Test configuration">
     <span class="mode-label">mode</span>
@@ -928,10 +874,6 @@
 <script>
 'use strict';
 
-/* ═══════════════════════════════════════════════════════════════
-   MOBILE DETECTION — runs once synchronously on parse
-   Uses matchMedia pointer:fine to distinguish stylus from mouse
-═══════════════════════════════════════════════════════════════ */
 (function detectMobile() {
   const wall = document.getElementById('mobile-wall');
   const isMobile = () =>
@@ -941,7 +883,6 @@
 
   if (isMobile()) wall.classList.add('show');
 
-  // Throttled resize using requestAnimationFrame — avoids layout thrash
   let rafId = null;
   window.addEventListener('resize', () => {
     if (rafId) return;
@@ -952,9 +893,6 @@
   });
 })();
 
-/* ═══════════════════════════════════════════════════════════════
-   WORD BANKS
-═══════════════════════════════════════════════════════════════ */
 const WORD_BANKS = {
   en: ["the","be","to","of","and","a","in","that","have","it","for","not","on","with","he","as","you","do","at","this","but","his","by","from","they","we","say","her","she","or","an","will","my","one","all","would","there","their","what","so","up","out","if","about","who","get","which","go","me","when","make","can","like","time","no","just","him","know","take","people","into","year","your","good","some","could","them","see","other","than","then","now","look","only","come","its","over","think","also","back","after","use","two","how","our","work","first","well","way","even","new","want","because","any","these","give","day","most","us","great","between","need","large","often","hand","high","place","hold","without","again","still","around","though","much","before","right","too","mean","old","while","last","few","another","turn","put","here","always","those","move","state","never","become","number","away","tell","public","feel"],
   ne: ["छ","गर्न","भयो","हो","गर्छ","मा","को","र","एक","यो","ले","गर्नु","पनि","छन्","भन्न","हुन","आउन","जान","देख्न","बोल्न","खान","पिउन","सुन्न","पढ्न","लेख्न","काम","घर","मान्छे","बच्चा","पानी","खाना","समय","दिन","राम्रो","ठूलो","सानो","नयाँ","पुरानो","राम्ररी","साथी","परिवार","देश","सहर","गाउँ","स्कूल","किताब","हातले","आँखा","मुटु","मन","बुझ्न","सिक्न","भन्छ","जान्छ","आउँछ","गर्छौ","छौ","हुन्छ"],
@@ -982,9 +920,6 @@ const QUOTES = {
   ]
 };
 
-/* ═══════════════════════════════════════════════════════════════
-   DOM REFS — cached once at startup to avoid repeated queries
-═══════════════════════════════════════════════════════════════ */
 const DOM = {
   wordsDisplay:     document.getElementById('words-display'),
   hiddenInput:      document.getElementById('hidden-input'),
@@ -1029,9 +964,6 @@ const DOM = {
   customOpts:       document.getElementById('custom-opts'),
 };
 
-/* ═══════════════════════════════════════════════════════════════
-   APPLICATION STATE — single flat object; mutate via helpers
-═══════════════════════════════════════════════════════════════ */
 const state = {
   mode: 'time',
   timeLimit: 15,
@@ -1040,13 +972,10 @@ const state = {
   lang: 'en',
   customText: '',
 
-  // Typing
   words: [],
-  /** @type {Array<{type:'char'|'space', el:HTMLElement, char:string, wordIdx:number, charIdx?:number}>} */
   charMap: [],
   charPos: 0,
 
-  // Timing
   startTime: null,
   timerInterval: null,
   statsInterval: null,
@@ -1055,38 +984,32 @@ const state = {
   running: false,
   finished: false,
 
-  // Scoring
-  correctChars: 0,
-  incorrectChars: 0,
+  // ── FIX: separate tracking for correct-word chars vs all chars ──
+  // correctWordChars: chars from words that were fully typed correctly (used for WPM)
+  // correctChars: all correctly typed chars including partial words (used for accuracy)
+  correctWordChars: 0,  // for WPM calculation — only fully correct words count
+  correctChars: 0,      // for accuracy numerator
+  incorrectChars: 0,    // for accuracy denominator
   totalKeystrokes: 0,
   mistakeMap: {},
   wpmHistory: [],
   accHistory: [],
   rawHistory: [],
 
-  // Settings
+  // Per-word tracking to determine if a word was typed perfectly
+  // wordErrors[wordIdx] = count of errors made while typing that word
+  wordErrors: [],
+
   sound: false,
   backspaceRestricted: false,
   animations: true,
 
-  // Retry
   lastWords: [],
-
-  // Cached line height — measured once per render, avoids reflow in scroll
   lineHeight: 40,
-
-  // Audio
   audioCtx: null,
-
-  // RAF handle for scroll batching
   scrollRaf: null,
 };
 
-/* ═══════════════════════════════════════════════════════════════
-   UTILITIES
-═══════════════════════════════════════════════════════════════ */
-
-/** Fisher-Yates shuffle — returns new array */
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -1096,12 +1019,8 @@ function shuffle(arr) {
   return a;
 }
 
-/** Clamp a value between min and max */
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
-/* ═══════════════════════════════════════════════════════════════
-   WORD GENERATION
-═══════════════════════════════════════════════════════════════ */
 function generateWords() {
   if (state.mode === 'quote') {
     const quotes = QUOTES[state.quoteLen];
@@ -1120,15 +1039,12 @@ function generateWords() {
   return words.slice(0, count);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RENDER WORDS — uses DocumentFragment to batch DOM inserts
-   Builds charMap once; subsequent updates only touch classList
-═══════════════════════════════════════════════════════════════ */
 function renderWords(words) {
   state.words = words;
   state.charMap = [];
+  // Initialize per-word error counters
+  state.wordErrors = new Array(words.length).fill(0);
 
-  // Build entire subtree off-screen in a fragment — single reflow on append
   const frag = document.createDocumentFragment();
 
   words.forEach((word, wi) => {
@@ -1149,32 +1065,25 @@ function renderWords(words) {
     if (wi < words.length - 1) {
       const spaceEl = document.createElement('span');
       spaceEl.className = 'space-char';
-      spaceEl.textContent = '\u00A0'; // non-breaking space preserves layout
+      spaceEl.textContent = '\u00A0';
       state.charMap.push({ type: 'space', wordIdx: wi, el: spaceEl, char: ' ' });
       frag.appendChild(spaceEl);
     }
   });
 
-  DOM.wordsDisplay.innerHTML = ''; // single clear
-  DOM.wordsDisplay.appendChild(frag); // single paint
+  DOM.wordsDisplay.innerHTML = '';
+  DOM.wordsDisplay.appendChild(frag);
 
-  // Measure line height ONCE after render — cached for scroll calculations
-  // Use getComputedStyle instead of getBoundingClientRect to reduce reflows
   state.lineHeight = parseFloat(getComputedStyle(DOM.wordsDisplay).lineHeight) || 40;
 
   state.charPos = 0;
   updateCursor();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CURSOR — updates only affected elements
-   Maintains refs to previous cursor elements to avoid querySelectorAll
-═══════════════════════════════════════════════════════════════ */
 let _prevCursorEl = null;
 let _prevCursorBeforeEl = null;
 
 function updateCursor() {
-  // Remove cursor from previous element — O(1) no DOM scan
   if (_prevCursorEl)       { _prevCursorEl.classList.remove('cursor-on'); _prevCursorEl = null; }
   if (_prevCursorBeforeEl) { _prevCursorBeforeEl.classList.remove('cursor-before'); _prevCursorBeforeEl = null; }
 
@@ -1191,11 +1100,8 @@ function updateCursor() {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SCROLL — batched in RAF to avoid layout thrash on every keystroke
-═══════════════════════════════════════════════════════════════ */
 function scheduleScroll() {
-  if (state.scrollRaf) return; // already pending
+  if (state.scrollRaf) return;
   state.scrollRaf = requestAnimationFrame(() => {
     state.scrollRaf = null;
     performScroll();
@@ -1204,29 +1110,28 @@ function scheduleScroll() {
 
 function performScroll() {
   if (state.charPos >= state.charMap.length) return;
-
   const el = state.charMap[state.charPos].el;
   const containerRect = DOM.wordsDisplay.getBoundingClientRect();
   const elRect = el.getBoundingClientRect();
   const lineH = state.lineHeight;
-
-  // Only scroll when cursor drifts past the 2nd line
   const relTop = elRect.top - containerRect.top;
   if (relTop > lineH * 1.5) {
     DOM.wordsDisplay.scrollTop += relTop - lineH * 0.5;
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SCORING HELPERS
-═══════════════════════════════════════════════════════════════ */
+/* ── FIX: WPM uses only fully correct completed words ──
+   correctWordChars accumulates the length of each word (+ 1 for the space)
+   only when the space is pressed and the entire word had zero errors.
+   Raw WPM still counts all keystrokes (correct + incorrect) for comparison. */
 function calcWpm(secs) {
   const mins = secs / 60;
-  return mins > 0 ? Math.round((state.correctChars / 5) / mins) : 0;
+  return mins > 0 ? Math.round((state.correctWordChars / 5) / mins) : 0;
 }
 function calcRawWpm(secs) {
   const mins = secs / 60;
-  return mins > 0 ? Math.round(((state.correctChars + state.incorrectChars) / 5) / mins) : 0;
+  const totalChars = state.correctChars + state.incorrectChars;
+  return mins > 0 ? Math.round((totalChars / 5) / mins) : 0;
 }
 function calcAcc() {
   const total = state.correctChars + state.incorrectChars;
@@ -1241,10 +1146,6 @@ function calcConsistency() {
   return Math.round(clamp((1 - cv) * 100, 0, 100));
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   PROGRESS BAR — uses CSS scaleX transform (GPU composited)
-   instead of animating width (triggers layout)
-═══════════════════════════════════════════════════════════════ */
 function updateProgress() {
   let pct;
   if (state.mode === 'time') {
@@ -1257,9 +1158,6 @@ function updateProgress() {
   DOM.progressWrap.setAttribute('aria-valuenow', Math.round(pct * 100));
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   TIMER
-═══════════════════════════════════════════════════════════════ */
 function startTimer() {
   state.startTime = Date.now();
   state.elapsed = 0;
@@ -1269,7 +1167,6 @@ function startTimer() {
     DOM.timerDisplay.textContent = state.timeLeft;
     DOM.timerLabel.textContent = 'seconds';
 
-    // 100ms tick is fine; avoid 16ms (RAF) for a timer — unnecessary CPU
     state.timerInterval = setInterval(() => {
       state.elapsed = (Date.now() - state.startTime) / 1000;
       state.timeLeft = Math.max(0, state.timeLimit - Math.floor(state.elapsed));
@@ -1285,7 +1182,6 @@ function startTimer() {
     }, 100);
   }
 
-  // Stats sampled at 1 s granularity — keeps history arrays lean
   state.statsInterval = setInterval(() => {
     const secs = (Date.now() - state.startTime) / 1000;
     if (secs < 0.5) return;
@@ -1307,10 +1203,6 @@ function stopTimer() {
   state.statsInterval = null;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   KEYBOARD HANDLER — single listener, no per-char listeners
-   Hot path: keep allocations minimal (no object creation per key)
-═══════════════════════════════════════════════════════════════ */
 DOM.hiddenInput.addEventListener('keydown', handleKey);
 DOM.hiddenInput.addEventListener('paste', e => e.preventDefault());
 DOM.hiddenInput.addEventListener('copy',  e => e.preventDefault());
@@ -1319,7 +1211,6 @@ DOM.hiddenInput.addEventListener('cut',   e => e.preventDefault());
 function handleKey(e) {
   if (state.finished) return;
 
-  // Any key (except Escape/Tab) starts the test
   if (!state.running && e.key !== 'Escape' && e.key !== 'Tab') {
     beginTest();
   }
@@ -1339,7 +1230,7 @@ function handleKey(e) {
   }
 
   if (e.key === ' ') e.preventDefault();
-  if (e.key.length !== 1) return; // ignore modifier keys etc.
+  if (e.key.length !== 1) return;
 
   if (state.charPos >= state.charMap.length) {
     finishTest();
@@ -1354,11 +1245,30 @@ function handleKey(e) {
   if (correct) {
     entry.el.classList.add('correct');
     state.correctChars++;
+
+    // ── FIX: When a space is typed correctly, check if the completed word
+    //    had zero errors. If so, credit its characters to correctWordChars.
+    if (entry.type === 'space') {
+      const wordIdx = entry.wordIdx;
+      if (state.wordErrors[wordIdx] === 0) {
+        // word length + 1 for the space itself
+        state.correctWordChars += state.words[wordIdx].length + 1;
+      }
+    }
+
     if (state.sound) playSound(true);
   } else {
     entry.el.classList.add('incorrect');
     state.incorrectChars++;
-    // Record mistake pair
+
+    // Track that this word has an error
+    if (entry.type === 'char') {
+      state.wordErrors[entry.wordIdx]++;
+    } else if (entry.type === 'space') {
+      // Wrong key pressed instead of space — mark the word as errored
+      state.wordErrors[entry.wordIdx]++;
+    }
+
     const exp = entry.char === ' ' ? '␣' : entry.char;
     const got = e.key    === ' ' ? '␣' : e.key;
     const pair = `${exp}→${got}`;
@@ -1369,11 +1279,16 @@ function handleKey(e) {
 
   state.charPos++;
   updateCursor();
-  scheduleScroll(); // batched — won't cause mid-keystroke reflow
+  scheduleScroll();
   updateProgress();
 
-  if (state.mode !== 'time' && state.charPos >= state.charMap.length) {
-    finishTest();
+  // For the last word (no trailing space), credit it on completion if errorless
+  if (state.charPos >= state.charMap.length) {
+    const lastWordIdx = state.words.length - 1;
+    if (state.wordErrors[lastWordIdx] === 0) {
+      state.correctWordChars += state.words[lastWordIdx].length;
+    }
+    if (state.mode !== 'time') finishTest();
   }
 }
 
@@ -1383,28 +1298,30 @@ function handleBackspace() {
   const entry = state.charMap[state.charPos];
   const { el } = entry;
 
-  if (el.classList.contains('correct'))   state.correctChars--;
+  if (el.classList.contains('correct'))        state.correctChars--;
   else if (el.classList.contains('incorrect')) state.incorrectChars--;
 
-  // Remove all state classes in one call
+  // ── FIX: If backspacing over a correctly typed space, we may have already
+  //    credited that word's chars — remove that credit so the user must
+  //    retype the space to earn it again.
+  if (entry.type === 'space' && el.classList.contains('correct')) {
+    const wordIdx = entry.wordIdx;
+    if (state.wordErrors[wordIdx] === 0) {
+      state.correctWordChars -= state.words[wordIdx].length + 1;
+    }
+  }
+
   el.classList.remove('correct', 'incorrect', 'extra');
   updateCursor();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SHAKE — removes class first to allow re-trigger
-═══════════════════════════════════════════════════════════════ */
 function shakeContainer() {
   const c = DOM.typingContainer;
   c.classList.remove('shake');
-  // Force style recalc in a single call; avoids double reflow with offsetWidth read
-  void c.offsetWidth; // intentional — triggers reflow to restart animation
+  void c.offsetWidth;
   c.classList.add('shake');
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SHOW / HIDE helpers — toggle visibility without repeated style sets
-═══════════════════════════════════════════════════════════════ */
 function showTypingView() {
   DOM.resultsScreen.style.display = 'none';
   DOM.typingContainer.style.display = '';
@@ -1424,24 +1341,22 @@ function showResultsView() {
   DOM.resultsScreen.style.display = 'block';
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   TEST LIFECYCLE
-═══════════════════════════════════════════════════════════════ */
 function initTest(retry = false) {
   stopTimer();
   cancelAnimationFrame(state.scrollRaf);
   state.scrollRaf = null;
 
-  // Reset cursor tracking refs
   _prevCursorEl = null;
   _prevCursorBeforeEl = null;
 
   Object.assign(state, {
     charPos: 0, startTime: null,
     running: false, finished: false,
+    correctWordChars: 0,  // FIX: reset correctly
     correctChars: 0, incorrectChars: 0, totalKeystrokes: 0,
     elapsed: 0, timeLeft: state.timeLimit,
     mistakeMap: {}, wpmHistory: [], accHistory: [], rawHistory: [],
+    wordErrors: [],
   });
 
   DOM.liveWpm.textContent = '–';
@@ -1487,7 +1402,6 @@ function finishTest() {
   const raw  = calcRawWpm(secs);
   const acc  = calcAcc();
 
-  // Populate results DOM
   DOM.resWpm.innerHTML         = `${wpm} <span class="big-unit">wpm</span>`;
   DOM.resAcc.textContent       = acc + '%';
   DOM.resAcc.className         = 'result-card-val ' + (acc >= 90 ? 'good' : acc >= 70 ? '' : 'bad');
@@ -1497,7 +1411,6 @@ function finishTest() {
   DOM.resTime.textContent      = secs.toFixed(1) + 's';
   DOM.resConsistency.textContent = calcConsistency() + '%';
 
-  // Mistake chips — built with fragment
   const chipFrag = document.createDocumentFragment();
   const mistakes = Object.entries(state.mistakeMap).sort((a, b) => b[1] - a[1]);
   if (mistakes.length === 0) {
@@ -1520,9 +1433,6 @@ function finishTest() {
   showResultsView();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CHART — destroyed & re-created only on results show
-═══════════════════════════════════════════════════════════════ */
 let perfChart = null;
 
 function renderChart() {
@@ -1559,7 +1469,6 @@ function renderChart() {
     },
     options: {
       responsive: true,
-      // animation: false speeds up chart paint significantly
       animation: { duration: 400 },
       interaction: { mode: 'index', intersect: false },
       plugins: {
@@ -1592,9 +1501,6 @@ function renderChart() {
   });
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   AUDIO — lazy AudioContext, pooled oscillators
-═══════════════════════════════════════════════════════════════ */
 function getAudioCtx() {
   if (!state.audioCtx) {
     state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1622,12 +1528,9 @@ function playSound(isCorrect) {
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
       osc.start(); osc.stop(ctx.currentTime + 0.08);
     }
-  } catch (_) { /* silently ignore AudioContext failures */ }
+  } catch (_) {}
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════════════════════════ */
 let toastTimer = null;
 function showToast(msg) {
   DOM.toast.textContent = msg;
@@ -1636,9 +1539,6 @@ function showToast(msg) {
   toastTimer = setTimeout(() => DOM.toast.classList.remove('show'), 2800);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SETTINGS PANEL
-═══════════════════════════════════════════════════════════════ */
 function openSettings() {
   DOM.settingsPanel.classList.add('open');
   DOM.settingsBackdrop.classList.add('open');
@@ -1652,7 +1552,6 @@ document.getElementById('settings-btn').addEventListener('click', openSettings);
 document.getElementById('settings-close').addEventListener('click', closeSettings);
 DOM.settingsBackdrop.addEventListener('click', closeSettings);
 
-/* ── Themes — data-theme attribute on <html> for CSS variable cascade ── */
 document.querySelectorAll('.swatch').forEach(s => {
   const activate = () => {
     document.documentElement.dataset.theme = s.dataset.theme;
@@ -1662,19 +1561,16 @@ document.querySelectorAll('.swatch').forEach(s => {
   s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') activate(); });
 });
 
-/* ── Font ── */
 document.querySelectorAll('[data-font]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-font]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const val = btn.dataset.font;
-    // Remove all font data attrs, set new one
     document.body.removeAttribute('data-font');
     if (val !== 'jetbrains') document.body.dataset.font = val;
   });
 });
 
-/* ── Font size — set CSS var directly, no class swap ── */
 document.querySelectorAll('[data-size]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-size]').forEach(b => b.classList.remove('active'));
@@ -1683,7 +1579,6 @@ document.querySelectorAll('[data-size]').forEach(btn => {
   });
 });
 
-/* ── Caret ── */
 document.querySelectorAll('[data-caret]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-caret]').forEach(b => b.classList.remove('active'));
@@ -1693,7 +1588,6 @@ document.querySelectorAll('[data-caret]').forEach(btn => {
   });
 });
 
-/* ── Language ── */
 document.querySelectorAll('[data-lang]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-lang]').forEach(b => b.classList.remove('active'));
@@ -1705,7 +1599,6 @@ document.querySelectorAll('[data-lang]').forEach(btn => {
   });
 });
 
-/* ── Layout (visual only) ── */
 document.querySelectorAll('[data-layout]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-layout]').forEach(b => b.classList.remove('active'));
@@ -1714,7 +1607,6 @@ document.querySelectorAll('[data-layout]').forEach(btn => {
   });
 });
 
-/* ── Toggles ── */
 DOM.soundToggle.addEventListener('change', e => {
   state.sound = e.target.checked;
   DOM.soundBtn.textContent = (state.sound ? '🔊' : '🔇') + ' Sound';
@@ -1736,11 +1628,6 @@ DOM.soundBtn.addEventListener('click', () => {
   DOM.soundToggle.checked = state.sound;
 });
 
-/* ═══════════════════════════════════════════════════════════════
-   MODE / OPTION TOOLBAR — event delegation for pill groups
-═══════════════════════════════════════════════════════════════ */
-
-/** Helper: activate one pill in a group and deactivate others */
 function activatePill(group, activeBtn) {
   group.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
   activeBtn.classList.add('active');
@@ -1752,7 +1639,6 @@ document.querySelectorAll('[data-mode-type]').forEach(btn => {
     activatePill(document.querySelectorAll('[data-mode-type]'), btn);
     state.mode = btn.dataset.modeType;
 
-    // Show/hide sub-option groups
     DOM.timeOpts.style.display   = state.mode === 'time'   ? '' : 'none';
     DOM.wordsOpts.style.display  = state.mode === 'words'  ? '' : 'none';
     DOM.quoteOpts.style.display  = state.mode === 'quote'  ? '' : 'none';
@@ -1797,9 +1683,6 @@ document.getElementById('custom-apply-btn').addEventListener('click', () => {
   showToast('Custom text applied!');
 });
 
-/* ═══════════════════════════════════════════════════════════════
-   CONTROL BUTTONS
-═══════════════════════════════════════════════════════════════ */
 DOM.startBtn.addEventListener('click', () => {
   if (!state.running) { DOM.hiddenInput.focus(); beginTest(); }
 });
@@ -1830,12 +1713,8 @@ document.getElementById('share-btn').addEventListener('click', () => {
   }
 });
 
-/* ── Focus / click to type ── */
 DOM.typingContainer.addEventListener('click', () => DOM.hiddenInput.focus());
 
-/* ═══════════════════════════════════════════════════════════════
-   GLOBAL KEYBOARD SHORTCUTS — single document listener
-═══════════════════════════════════════════════════════════════ */
 document.addEventListener('keydown', e => {
   if (e.key === 'Tab') {
     e.preventDefault();
@@ -1849,9 +1728,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* ═══════════════════════════════════════════════════════════════
-   BOOTSTRAP
-═══════════════════════════════════════════════════════════════ */
 initTest();
 DOM.hiddenInput.focus();
 </script>
